@@ -27,7 +27,7 @@ public class InputDAO implements InputDAOInterface {
         contentValues.put("value_input", input.getValueInput());
         contentValues.put("description_input", input.getDescriptionInput());
         contentValues.put("date_input", input.getDateInput());
-        contentValues.put("category_input", input.getIdCategory());
+        contentValues.put("id_cat", input.getIdCategory());
 
         try{
             write.insert(DbHelper.TABLE_INPUT, null, contentValues);
