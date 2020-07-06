@@ -11,8 +11,13 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.gameon.mycash_carteiradigital.R;
+import com.gameon.mycash_carteiradigital.helper.DbHelper;
+import com.gameon.mycash_carteiradigital.model.Category;
+
+import java.util.List;
 
 public class CadastroGanhosActivity extends AppCompatActivity {
 
@@ -23,6 +28,16 @@ public class CadastroGanhosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_cadastro_ganhos);
+
+        //Teste para verificar se está extraindo dados do DB
+
+        DbHelper db = new DbHelper(this);
+
+        List<Category> ctg = db.categoryAll();
+        if(ctg.isEmpty()) {
+            Toast.makeText(this, "List is empty", Toast.LENGTH_SHORT).show();
+        }
+
 
         //Configurar título da toobar
         getSupportActionBar().setTitle("Entrada dos ganhos");
