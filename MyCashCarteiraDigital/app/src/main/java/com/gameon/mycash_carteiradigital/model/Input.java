@@ -10,6 +10,8 @@ public class Input implements Serializable {
     private String descriptionInput;
     private Long idCategory;
 
+    public Input(){}
+
     public Input(Long idInput, String dateInput, Double valueInput, String descriptionInput, Long idCategory) {
         this.idInput = idInput;
         this.dateInput = dateInput;
