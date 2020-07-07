@@ -49,7 +49,17 @@ public class InputDAO implements InputDAOInterface {
 
     @Override
     public boolean delete(Input input) {
-        return false;
+
+        try {
+            String[] args = {input.getIdInput().toString()};
+            write.delete(DbHelper.TABLE_INPUT, "id_input=?", args);
+            Log.i("deleteItem", "Sucesso  ao deletar item");
+        }catch (Exception e){
+            Log.i("deleteItem", "Erro  ao deletar item :" + e.getMessage());
+            return false;
+        }
+
+        return true;
     }
 
     @Override
