@@ -5,10 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,9 +17,14 @@ import android.widget.Toast;
 
 import com.gameon.mycash_carteiradigital.R;
 import com.gameon.mycash_carteiradigital.helper.DbHelper;
+
 import com.gameon.mycash_carteiradigital.helper.InputDAO;
 import com.gameon.mycash_carteiradigital.model.Input;
 import com.google.android.material.textfield.TextInputEditText;
+
+import com.gameon.mycash_carteiradigital.model.Category;
+
+import java.util.List;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,6 +34,7 @@ public class CadastroGanhosActivity extends AppCompatActivity implements Adapter
     private Spinner spinnerCategory;
     private TextInputEditText inputValue;
     private TextInputEditText inputDescription;
+    private Input idCategory;
 
     private Button buttonText;
 
@@ -38,11 +44,21 @@ public class CadastroGanhosActivity extends AppCompatActivity implements Adapter
         setContentView(R.layout.layout_cadastro_ganhos);
 
         //recuperando IDs dos componentes View
-        spinnerCategory  = findViewById(R.id.spinnerCategoryInput);
         inputValue       = findViewById(R.id.inputValueInput);
-        inputDescription = findViewById(R.id.inputDescriptionOutput);
+        inputDescription = findViewById(R.id.inputDescriptionInput);
+        spinnerCategory  = findViewById(R.id.spinnerCategoryInput);
+        //click do spinner
+        spinnerCategory.setOnItemSelectedListener(this);
 
-        //Configurar título da toobar
+        //Teste para verificar se está extraindo dados do DB
+
+        DbHelper db = new DbHelper(this);
+
+        List<Category> ctg = db.categoryAll();
+        if(ctg.isEmpty()) {
+            Toast.makeText(this, "List is empty", Toast.LENGTH_SHORT).show();
+        }
+
         getSupportActionBar().setTitle("Entrada dos ganhos");
 
         //Configurando DropDown das categorias de ganhos
@@ -57,7 +73,7 @@ public class CadastroGanhosActivity extends AppCompatActivity implements Adapter
         buttonText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CadastroGanhosActivity.this, CadastroDespesasActivity.class);
+                Intent intent = new Intent(CadastroGanhosActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
         });
@@ -85,7 +101,9 @@ public class CadastroGanhosActivity extends AppCompatActivity implements Adapter
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyy");
             Date d = new Date();
             String date = simpleDateFormat.format(d);
+            Long idCtg = idCategory.getIdCategory();
 
+            //Recebe a função de validação dos campos
             boolean validateFields = validatedFields(value, description);
 
             if (validateFields){
@@ -94,7 +112,9 @@ public class CadastroGanhosActivity extends AppCompatActivity implements Adapter
                 input.setValueInput(Double.parseDouble(value));
                 input.setDescriptionInput(description);
                 input.setDateInput(date);
+                input.setIdCategory(idCtg);
 
+                //salva no bando de dados
                 inputDAO.save(input);
 
                 //Mensagem para sinalizar que os dados foram salvos
@@ -114,6 +134,28 @@ public class CadastroGanhosActivity extends AppCompatActivity implements Adapter
     //Métodos de click para o Spinner
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        if (parent.getId() == R.id.spinnerCategoryInput){
+            Long iDposition = parent.getItemIdAtPosition(position);
+            String ctg = String.valueOf(iDposition);
+
+            idCategory = new Input();
+
+           switch (ctg){
+               case "0":
+                   long salary = 1;
+                   idCategory.setIdCategory(salary);
+                   break;
+               case "1":
+                   long extra = 2;
+                   idCategory.setIdCategory(extra);
+                   break;
+               case "2":
+                   long other = 3;
+                   idCategory.setIdCategory(other);
+                   break;
+           }
+        }
 
     }
 
