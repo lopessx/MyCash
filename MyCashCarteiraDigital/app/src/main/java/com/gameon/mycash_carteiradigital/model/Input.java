@@ -9,15 +9,17 @@ public class Input implements Serializable {
     private Double valueInput;
     private String descriptionInput;
     private Long idCategory;
+    private String typeInput;
 
     public Input(){}
 
-    public Input(Long idInput, String dateInput, Double valueInput, String descriptionInput, Long idCategory) {
+    public Input(Long idInput, String dateInput, Double valueInput, String descriptionInput, Long idCategory, String typeInput) {
         this.idInput = idInput;
         this.dateInput = dateInput;
         this.valueInput = valueInput;
         this.descriptionInput = descriptionInput;
         this.idCategory = idCategory;
+        this.typeInput = typeInput;
     }
 
     public Long getIdInput() {
@@ -58,5 +60,13 @@ public class Input implements Serializable {
 
     public void setIdCategory(Long idCategory) {
         this.idCategory = idCategory;
+    }
+
+    public String getTypeInput() {
+        return typeInput;
+    }
+
+    public void setTypeInput(String typeInput) {
+        this.typeInput = typeInput;
     }
 }

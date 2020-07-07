@@ -2,11 +2,13 @@ package com.gameon.mycash_carteiradigital.helper;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.gameon.mycash_carteiradigital.model.Input;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class InputDAO implements InputDAOInterface {
@@ -52,6 +54,32 @@ public class InputDAO implements InputDAOInterface {
 
     @Override
     public List<Input> list() {
-        return null;
+        List<Input> inputList = new ArrayList<>();
+
+        String sqlListInput = " SELECT * FROM "+ DbHelper.TABLE_INPUT +" INNER JOIN "
+                                + DbHelper.TABLE_CATEGORY + " ON input.id_cat = category.id_cat ; ";
+        Cursor cursor = read.rawQuery(sqlListInput, null);
+
+        while (cursor.moveToNext()){
+            Input input = new Input();
+
+            Long id = cursor.getLong(cursor.getColumnIndex("id_input"));
+            String date = cursor.getString(cursor.getColumnIndex("date_input"));
+            Double value = cursor.getDouble(cursor.getColumnIndex("value_input"));
+            String description = cursor.getString(cursor.getColumnIndex("description_input"));
+            Long idCat = cursor.getLong(cursor.getColumnIndex("id_cat"));
+            String typeInput = cursor.getString(cursor.getColumnIndex("name_cat"));
+
+            input.setIdInput(id);
+            input.setDateInput(date);
+            input.setValueInput(value);
+            input.setDescriptionInput(description);
+            input.setIdCategory(idCat);
+            input.setTypeInput(typeInput);
+
+            inputList.add(input);
+        }
+
+        return inputList;
     }
 }

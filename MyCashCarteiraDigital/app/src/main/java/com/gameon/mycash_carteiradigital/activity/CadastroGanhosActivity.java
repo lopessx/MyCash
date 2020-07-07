@@ -73,7 +73,7 @@ public class CadastroGanhosActivity extends AppCompatActivity implements Adapter
         buttonText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CadastroGanhosActivity.this, HomeActivity.class);
+                Intent intent = new Intent(CadastroGanhosActivity.this, ListagemGanhosActivity.class);
                 startActivity(intent);
             }
         });
@@ -98,9 +98,12 @@ public class CadastroGanhosActivity extends AppCompatActivity implements Adapter
         if (id == R.id.menuFinish){
             String value = inputValue.getText().toString();
             String description = inputDescription.getText().toString();
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyy");
+
+            //Configurar formato da data e setar seu valor
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyy");
             Date d = new Date();
             String date = simpleDateFormat.format(d);
+
             Long idCtg = idCategory.getIdCategory();
 
             //Recebe a função de validação dos campos
