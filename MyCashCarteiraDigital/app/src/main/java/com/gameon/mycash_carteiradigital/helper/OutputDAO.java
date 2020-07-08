@@ -2,12 +2,15 @@ package com.gameon.mycash_carteiradigital.helper;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.gameon.mycash_carteiradigital.model.Input;
 import com.gameon.mycash_carteiradigital.model.Output;
 
 import java.security.cert.CertificateParsingException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OutputDAO implements OutputDAOInterface {
@@ -31,7 +34,7 @@ public class OutputDAO implements OutputDAOInterface {
         contentValues.put("id_cat", output.getIdCategory());
 
         try{
-
+            write.insert(DbHelper.TABLE_OUTPUT, null, contentValues);
             Log.i("saveOutput", "Sucesso ao salvar output (gastos)!");
         }catch (Exception e){
             Log.i("saveOutput", "Erro ao salvar output (gastos) : " + e.getMessage());
@@ -48,11 +51,46 @@ public class OutputDAO implements OutputDAOInterface {
 
     @Override
     public boolean delete(Output output) {
-        return false;
+        try {
+            String[] args = {output.getIdOutput().toString()};
+            write.delete(DbHelper.TABLE_OUTPUT, "id_output=?", args);
+            Log.i("deleteItem", "Sucesso  ao deletar item");
+        }catch (Exception e){
+            Log.i("deleteItem", "Erro  ao deletar item :" + e.getMessage());
+            return false;
+        }
+
+        return true;
     }
 
     @Override
     public List<Output> list() {
-        return null;
+        List<Output> outputList = new ArrayList<>();
+
+        String sqlListInput = " SELECT * FROM "+ DbHelper.TABLE_OUTPUT +" INNER JOIN "
+                + DbHelper.TABLE_CATEGORY + " ON output.id_cat = category.id_cat ; ";
+        Cursor cursor = read.rawQuery(sqlListInput, null);
+
+        while (cursor.moveToNext()){
+            Output output = new Output();
+
+            Long id = cursor.getLong(cursor.getColumnIndex("id_output"));
+            String date = cursor.getString(cursor.getColumnIndex("date_output"));
+            Double value = cursor.getDouble(cursor.getColumnIndex("value_output"));
+            String description = cursor.getString(cursor.getColumnIndex("description_output"));
+            Long idCat = cursor.getLong(cursor.getColumnIndex("id_cat"));
+            String typeOutput = cursor.getString(cursor.getColumnIndex("name_cat"));
+
+            output.setIdOutput(id);
+            output.setDateOutput(date);
+            output.setValueOutput(value);
+            output.setDescriptionOutput(description);
+            output.setIdCategory(idCat);
+            output.setTypeOutput(typeOutput);
+
+            outputList.add(output);
+        }
+
+        return outputList;
     }
 }

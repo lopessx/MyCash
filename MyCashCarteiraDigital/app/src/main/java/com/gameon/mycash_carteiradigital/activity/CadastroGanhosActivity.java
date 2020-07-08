@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,15 +15,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.gameon.mycash_carteiradigital.R;
-import com.gameon.mycash_carteiradigital.helper.DbHelper;
 
 import com.gameon.mycash_carteiradigital.helper.InputDAO;
 import com.gameon.mycash_carteiradigital.model.Input;
 import com.google.android.material.textfield.TextInputEditText;
-
-import com.gameon.mycash_carteiradigital.model.Category;
-
-import java.util.List;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -41,7 +35,7 @@ public class CadastroGanhosActivity extends AppCompatActivity implements Adapter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_cadastro_ganhos);
+        setContentView(R.layout.layout_cadastro_despesas);
 
         //recuperando IDs dos componentes View
         inputValue       = findViewById(R.id.inputValueInput);
@@ -49,15 +43,6 @@ public class CadastroGanhosActivity extends AppCompatActivity implements Adapter
         spinnerCategory  = findViewById(R.id.spinnerCategoryInput);
         //click do spinner
         spinnerCategory.setOnItemSelectedListener(this);
-
-        //Teste para verificar se está extraindo dados do DB
-
-        DbHelper db = new DbHelper(this);
-
-        List<Category> ctg = db.categoryAll();
-        if(ctg.isEmpty()) {
-            Toast.makeText(this, "List is empty", Toast.LENGTH_SHORT).show();
-        }
 
         getSupportActionBar().setTitle("Entrada dos ganhos");
 

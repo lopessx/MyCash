@@ -67,7 +67,8 @@ public class DbHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //String para inserir dados no category
-        String populateCategory = "INSERT INTO "+ TABLE_CATEGORY +" (name_cat,type_cat) VALUES ('Salário','Entrada de dinheiro'),('Extra','Entrada de dinheiro'),('Outros Ganhos','Entrada de dinheiro');";
+        String populateCategory = "INSERT INTO "+ TABLE_CATEGORY +" (name_cat,type_cat) VALUES ('Salário','Entrada de dinheiro'),('Extra','Entrada de dinheiro'),('Outros Ganhos','Entrada de dinheiro')," +
+                "('Alimentação','Saida de dinheiro'),('Aluguel','Saida de dinheiro'),('Água','Saida de dinheiro'),('Energia','Saida de dinheiro'),('Cartão de Crédito','Saida de dinheiro'),('Combustível','Saida de dinheiro'),('Lazer','Saida de dinheiro'),('Outras Despesas','Saida de dinheiro');";
         //Vai tentar executar o SQL da String
         try{
             db.execSQL(populateCategory);
