@@ -9,13 +9,19 @@ public class Output implements Serializable {
     private Double valueOutput;
     private String descriptionOutput;
     private Long idCategory;
+    private String typeOutput;
 
-    public Output(Long idOutput, String dateOutput, Double valueOutput, String descriptionOutput, Long idCategory) {
+    public Output(){
+
+    }
+
+    public Output(Long idOutput, String dateOutput, Double valueOutput, String descriptionOutput, Long idCategory, String typeOutput) {
         this.idOutput = idOutput;
         this.dateOutput = dateOutput;
         this.valueOutput = valueOutput;
         this.descriptionOutput = descriptionOutput;
         this.idCategory = idCategory;
+        this.typeOutput = typeOutput;
     }
 
     public Long getIdOutput() {
@@ -37,6 +43,10 @@ public class Output implements Serializable {
     public Double getValueOutput() {
         return valueOutput;
     }
+
+    public String getTypeOutput()  { return typeOutput;}
+
+    public void setTypeOutput(String typeOutput) { this.typeOutput = typeOutput;}
 
     public void setValueOutput(Double valueOutput) {
         this.valueOutput = valueOutput;
