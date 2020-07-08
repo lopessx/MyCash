@@ -25,24 +25,24 @@ import java.util.Date;
 
 public class CadastroGanhosActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private Spinner spinnerCategory;
+    private Spinner spinnerCategoryInput;
     private TextInputEditText inputValue;
     private TextInputEditText inputDescription;
     private Input idCategory;
 
-    private Button buttonText;
+    private Button buttonText1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_cadastro_despesas);
+        setContentView(R.layout.layout_cadastro_ganhos);
 
         //recuperando IDs dos componentes View
         inputValue       = findViewById(R.id.inputValueInput);
         inputDescription = findViewById(R.id.inputDescriptionInput);
-        spinnerCategory  = findViewById(R.id.spinnerCategoryInput);
+        spinnerCategoryInput  = findViewById(R.id.spinnerCategoryInput);
         //click do spinner
-        spinnerCategory.setOnItemSelectedListener(this);
+        spinnerCategoryInput.setOnItemSelectedListener(this);
 
         getSupportActionBar().setTitle("Entrada dos ganhos");
 
@@ -51,14 +51,13 @@ public class CadastroGanhosActivity extends AppCompatActivity implements Adapter
         ArrayAdapter arrayAdapter = new ArrayAdapter(
                 this, android.R.layout.simple_spinner_item, categorys);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCategory.setAdapter(arrayAdapter);
+        spinnerCategoryInput.setAdapter(arrayAdapter);
 
-        //botão para fins de teste
-        buttonText = findViewById(R.id.button);
-        buttonText.setOnClickListener(new View.OnClickListener() {
+        buttonText1 = findViewById(R.id.buttonTexte1);
+        buttonText1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CadastroGanhosActivity.this, ListagemGanhosActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ListagemGanhosActivity.class);
                 startActivity(intent);
             }
         });

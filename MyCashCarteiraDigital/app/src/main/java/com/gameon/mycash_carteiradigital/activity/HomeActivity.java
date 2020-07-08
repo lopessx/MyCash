@@ -10,15 +10,10 @@ import com.gameon.mycash_carteiradigital.R;
 
 public class HomeActivity extends AppCompatActivity {
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_home);
-
-
 
     }
 

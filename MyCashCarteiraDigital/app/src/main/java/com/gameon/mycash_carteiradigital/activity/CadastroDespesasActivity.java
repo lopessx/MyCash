@@ -27,7 +27,7 @@ import java.util.Date;
 
 public class CadastroDespesasActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
-    private Spinner spinnerCategory;
+    private Spinner spinnerCategoryOutput;
     private TextInputEditText outputValue;
     private TextInputEditText outputDescription;
     private Input idCategory;
@@ -42,21 +42,22 @@ public class CadastroDespesasActivity extends AppCompatActivity implements Adapt
         //recuperando IDs dos componentes View
         outputValue = findViewById(R.id.inputValueOutput);
         outputDescription = findViewById(R.id.inputDescriptionOutput);
-        spinnerCategory = findViewById(R.id.spinnerCategoryOutput);
+        spinnerCategoryOutput = findViewById(R.id.spinnerCategoryOutput);
         //click do spinner
-        spinnerCategory.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+        spinnerCategoryOutput.setOnItemSelectedListener(this);
 
+        //Mudar título da toobar
         getSupportActionBar().setTitle("Saída dos ganhos");
 
         //Configurando DropDown das categorias de ganhos
-        String[] categorys = getResources().getStringArray(R.array.earning_category);
+        String[] categorys = getResources().getStringArray(R.array.expenses_category);
         ArrayAdapter arrayAdapter = new ArrayAdapter(
                 this, android.R.layout.simple_spinner_item, categorys);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCategory.setAdapter(arrayAdapter);
+        spinnerCategoryOutput.setAdapter(arrayAdapter);
 
         //botão para fins de teste
-        buttonText = findViewById(R.id.button);
+        buttonText = findViewById(R.id.buttontexte2);
         buttonText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
