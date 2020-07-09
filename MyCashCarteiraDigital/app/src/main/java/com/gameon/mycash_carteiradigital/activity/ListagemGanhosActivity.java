@@ -3,6 +3,7 @@ package com.gameon.mycash_carteiradigital.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +31,7 @@ public class ListagemGanhosActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private List<Input> listInput = new ArrayList<>();
     private Input inputSelected = new Input();
+    AdapterListagemGanhos adapterListagemGanhos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +113,7 @@ public class ListagemGanhosActivity extends AppCompatActivity {
         listInput = inputDAO.list();
 
         //Passando lista para o AdapterListagemGanhos para a listagem
-        AdapterListagemGanhos adapterListagemGanhos = new AdapterListagemGanhos(listInput);
+        adapterListagemGanhos = new AdapterListagemGanhos(listInput);
 
         //Configurabdo o RecyclerView
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -127,6 +129,22 @@ public class ListagemGanhosActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.menuSearch);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Tudo isso ta no Adapter
+                adapterListagemGanhos.getFilter().filter(newText);
+                return false;
+            }
+        });
 
         return super.onCreateOptionsMenu(menu);
     }
