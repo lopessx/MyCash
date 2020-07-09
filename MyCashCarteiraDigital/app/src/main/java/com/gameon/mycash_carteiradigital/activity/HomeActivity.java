@@ -30,4 +30,11 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void graficoTela (View view){
+
+        Intent intent = new Intent(this, GraficoActivity.class);
+        startActivity(intent);
+
+    }
+
 }
