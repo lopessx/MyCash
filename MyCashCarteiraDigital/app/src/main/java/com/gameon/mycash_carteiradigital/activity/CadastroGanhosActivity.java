@@ -44,7 +44,10 @@ public class CadastroGanhosActivity extends AppCompatActivity implements Adapter
         //click do spinner
         spinnerCategoryInput.setOnItemSelectedListener(this);
 
+        //Mudar título da toobar
         getSupportActionBar().setTitle("Entrada dos ganhos");
+        //Botão de voltar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Configurando DropDown das categorias de ganhos
         String[] categorys = getResources().getStringArray(R.array.earning_category);
@@ -107,6 +110,9 @@ public class CadastroGanhosActivity extends AppCompatActivity implements Adapter
                 //Mensagem para sinalizar que os dados foram salvos
                 Toast.makeText(getApplicationContext(), "Salvo com sucesso!",
                         Toast.LENGTH_SHORT).show();
+
+                //Finaliza a activity
+                finish();
             }else{
                 //Mensagem de aviso casos os campos não tenham sido validados
                 Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos!",

@@ -48,6 +48,8 @@ public class CadastroDespesasActivity extends AppCompatActivity implements Adapt
 
         //Mudar título da toobar
         getSupportActionBar().setTitle("Saída dos ganhos");
+        //Botão de voltar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Configurando DropDown das categorias de ganhos
         String[] categorys = getResources().getStringArray(R.array.expenses_category);
@@ -111,6 +113,7 @@ public class CadastroDespesasActivity extends AppCompatActivity implements Adapt
                 //Mensagem para sinalizar que os dados foram salvos
                 Toast.makeText(getApplicationContext(), "Salvo com sucesso!",
                         Toast.LENGTH_SHORT).show();
+
             } else {
                 //Mensagem de aviso casos os campos não tenham sido validados
                 Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos!",
