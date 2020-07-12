@@ -15,6 +15,9 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_home);
 
+        //Elevação da toobar
+        getSupportActionBar().setElevation(0);
+
     }
 
     //Função de mudança de tela que irá ser executada quando o botão for pressionado
@@ -23,6 +26,14 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CadastroGanhosActivity.class);
         startActivity(intent);
     }
+
+    //Tela de listagem de ganhos
+    public  void consultarGanhos (View view){
+
+        Intent intent = new Intent(this, ListagemGanhosActivity.class);
+        startActivity(intent);
+    }
+
     //Função de mudança de tela que irá ser executada quando o botão for pressionado
     public void despesaTela(View view){
 

@@ -30,8 +30,6 @@ public class CadastroGanhosActivity extends AppCompatActivity implements Adapter
     private TextInputEditText inputDescription;
     private Input idCategory;
 
-    private Button buttonText1;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,15 +53,6 @@ public class CadastroGanhosActivity extends AppCompatActivity implements Adapter
                 this, android.R.layout.simple_spinner_item, categorys);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategoryInput.setAdapter(arrayAdapter);
-
-        buttonText1 = findViewById(R.id.buttonTexte1);
-        buttonText1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ListagemGanhosActivity.class);
-                startActivity(intent);
-            }
-        });
 
     }
 
