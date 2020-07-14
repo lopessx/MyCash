@@ -34,4 +34,6 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     //Biblioteca para o gráfico de pizza
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    //Biblioteca para a tela de SOBRE NÓS
+    implementation 'com.github.medyo:android-about-page:1.3'
 }

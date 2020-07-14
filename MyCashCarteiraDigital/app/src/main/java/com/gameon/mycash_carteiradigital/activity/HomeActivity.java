@@ -48,4 +48,11 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    //Vai pra tela de SOBRE NÓS
+    public void sobreTela(View view){
+
+        Intent intent = new Intent(this, SobreActivity.class);
+        startActivity(intent);
+    }
+
 }

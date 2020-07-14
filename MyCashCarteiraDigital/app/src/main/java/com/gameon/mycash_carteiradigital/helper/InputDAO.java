@@ -92,4 +92,26 @@ public class InputDAO implements InputDAOInterface {
 
         return inputList;
     }
+
+    public List<Input> typeValue (){
+        List<Input> inputList = new ArrayList<>();
+
+        String sqlListInput = " SELECT * FROM "+ DbHelper.TABLE_INPUT +" INNER JOIN "
+                + DbHelper.TABLE_CATEGORY + " ON input.id_cat = category.id_cat ; ";
+        Cursor cursor = read.rawQuery(sqlListInput, null);
+
+        while (cursor.moveToNext()){
+            Input retorno = new Input();
+
+            Double value = cursor.getDouble(cursor.getColumnIndex("value_input"));
+            String typeInput = cursor.getString(cursor.getColumnIndex("name_cat"));
+
+            retorno.setValueInput(value);
+            retorno.setTypeInput(typeInput);
+
+            inputList.add(retorno);
+        }
+
+        return inputList;
+    }
 }
