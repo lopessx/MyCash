@@ -16,9 +16,9 @@ import android.widget.Toast;
 
 import com.gameon.mycash_carteiradigital.R;
 
-import com.gameon.mycash_carteiradigital.helper.InputDAO;
+
 import com.gameon.mycash_carteiradigital.helper.OutputDAO;
-import com.gameon.mycash_carteiradigital.model.Input;
+
 import com.gameon.mycash_carteiradigital.model.Output;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -30,9 +30,7 @@ public class CadastroDespesasActivity extends AppCompatActivity implements Adapt
     private Spinner spinnerCategoryOutput;
     private TextInputEditText outputValue;
     private TextInputEditText outputDescription;
-    private Input idCategory;
-
-    private Button buttonText;
+    private Output idCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +56,7 @@ public class CadastroDespesasActivity extends AppCompatActivity implements Adapt
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategoryOutput.setAdapter(arrayAdapter);
 
-        //botão para fins de teste
-        buttonText = findViewById(R.id.buttontexte2);
-        buttonText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CadastroDespesasActivity.this, ListagemGanhosActivity.class);
-                startActivity(intent);
-            }
-        });
+
 
     }
 
@@ -133,19 +123,39 @@ public class CadastroDespesasActivity extends AppCompatActivity implements Adapt
             Long iDposition = parent.getItemIdAtPosition(position);
             String ctg = String.valueOf(iDposition);
 
-            idCategory = new Input();
+            idCategory = new Output();
 
             switch (ctg) {
                 case "0":
-                    long salary = 1;
-                    idCategory.setIdCategory(salary);
+                    long food = 4;
+                    idCategory.setIdCategory(food);
                     break;
                 case "1":
-                    long extra = 2;
-                    idCategory.setIdCategory(extra);
+                    long rent = 5;
+                    idCategory.setIdCategory(rent);
                     break;
                 case "2":
-                    long other = 3;
+                    long water = 6;
+                    idCategory.setIdCategory(water);
+                    break;
+                case "3":
+                    long energy = 7;
+                    idCategory.setIdCategory(energy);
+                    break;
+                case "4":
+                    long creditcard = 8;
+                    idCategory.setIdCategory(creditcard);
+                    break;
+                case "5":
+                    long fuel = 9;
+                    idCategory.setIdCategory(fuel);
+                    break;
+                case "6":
+                    long fun = 10;
+                    idCategory.setIdCategory(fun);
+                    break;
+                case "7":
+                    long other = 11;
                     idCategory.setIdCategory(other);
                     break;
             }
