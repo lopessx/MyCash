@@ -93,6 +93,7 @@ public class InputDAO implements InputDAOInterface {
         return inputList;
     }
 
+    //Dados usados pelo gráfico
     public List<Input> typeValue (){
         List<Input> inputList = new ArrayList<>();
 

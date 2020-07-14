@@ -9,10 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.SobreActivity"
-            android:parentActivityName=".activity.HomeActivity"></activity>
-        <activity android:name=".activity.GraficoActivity"
-            android:parentActivityName=".activity.HomeActivity"/>
+        <activity android:name=".activity.SplashActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.SobreActivity"
+            android:parentActivityName=".activity.HomeActivity"
+            />
+        <activity
+            android:name=".activity.GraficoActivity"
+            android:parentActivityName=".activity.HomeActivity" />
         <activity
             android:name=".activity.ListagemGanhosActivity"
             android:parentActivityName=".activity.HomeActivity" />
@@ -22,7 +33,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
@@ -31,6 +42,10 @@
         <activity
             android:name=".activity.CadastroGanhosActivity"
             android:parentActivityName=".activity.HomeActivity" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

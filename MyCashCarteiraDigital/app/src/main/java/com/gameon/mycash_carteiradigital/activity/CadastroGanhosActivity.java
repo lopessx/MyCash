@@ -43,7 +43,7 @@ public class CadastroGanhosActivity extends AppCompatActivity implements Adapter
         spinnerCategoryInput.setOnItemSelectedListener(this);
 
         //Mudar título da toobar
-        getSupportActionBar().setTitle("Entrada dos ganhos");
+        getSupportActionBar().setTitle("Adicionar ganhos");
         //Botão de voltar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
