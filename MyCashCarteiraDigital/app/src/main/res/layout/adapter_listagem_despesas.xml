@@ -39,11 +39,12 @@
             android:text="Descrição:" />
 
         <TextView
-            android:id="@+id/textDescriptionInput"
+            android:id="@+id/textDescriptionOutput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Descrição" />
+            android:text="TextView" />
+
     </LinearLayout>
 
     <LinearLayout

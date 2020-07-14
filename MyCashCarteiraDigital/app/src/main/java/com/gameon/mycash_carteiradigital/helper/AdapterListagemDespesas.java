@@ -51,10 +51,6 @@ public class AdapterListagemDespesas extends RecyclerView.Adapter<AdapterListage
         holder.textType.setText(output.getTypeOutput());
     }
 
-
-
-
-
     @Override
     public int getItemCount() {
         return outputList.size();
@@ -113,10 +109,10 @@ public class AdapterListagemDespesas extends RecyclerView.Adapter<AdapterListage
         public MyOutputViewlHolder(@NonNull View itemView) {
             super(itemView);
 
-            textDate = itemView.findViewById(R.id.textDateInput);
-            textDescription = itemView.findViewById(R.id.textDescriptionInput);
-            textValue = itemView.findViewById(R.id.textValueInput);
-            textType = itemView.findViewById(R.id.textTypeInput);
+            textDate = itemView.findViewById(R.id.textDateOutput);
+            textDescription = itemView.findViewById(R.id.textDescriptionOutput);
+            textValue = itemView.findViewById(R.id.textValueOutput);
+            textType = itemView.findViewById(R.id.textTypeOutput);
         }
     }
 }

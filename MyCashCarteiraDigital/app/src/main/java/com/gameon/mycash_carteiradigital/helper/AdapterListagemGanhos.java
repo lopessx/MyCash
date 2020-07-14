@@ -106,7 +106,7 @@ public class AdapterListagemGanhos extends RecyclerView.Adapter<AdapterListagemG
             super(itemView);
 
             textDate = itemView.findViewById(R.id.textDateInput);
-            textDescription = itemView.findViewById(R.id.textDescriptionInput);
+            textDescription = itemView.findViewById(R.id.textInput);
             textValue = itemView.findViewById(R.id.textValueInput);
             textType = itemView.findViewById(R.id.textTypeInput);
         }

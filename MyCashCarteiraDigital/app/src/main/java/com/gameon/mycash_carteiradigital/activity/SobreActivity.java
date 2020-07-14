@@ -46,8 +46,8 @@ public class SobreActivity extends AppCompatActivity {
                         "Instagram")
 
                 .addGroup("Miguel Barbosa")
-                .addGitHub("", "GitHub")
-                .addInstagram("", "Instagram")
+                .addGitHub("miguel8000", "GitHub")
+                .addEmail("miguel.neto8000@gmail.com", "E-mail")
 
                 .addGroup("Vitor Falcão")
                 .addGitHub("VictorGameOn", "GitHub")

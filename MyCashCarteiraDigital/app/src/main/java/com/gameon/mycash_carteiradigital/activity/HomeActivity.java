@@ -37,7 +37,7 @@ public class HomeActivity extends AppCompatActivity {
     //Tela de listagem de despesas
     public void consultarDespesas (View view){
 
-        Intent intent = new Intent(this,ListagemDespesasActivity.class);
+        Intent intent = new Intent(this, ListagemDespesasActivity.class);
         startActivity(intent);
     }
 

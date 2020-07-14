@@ -28,6 +28,9 @@
             android:name=".activity.ListagemGanhosActivity"
             android:parentActivityName=".activity.HomeActivity" />
         <activity
+            android:name=".activity.ListagemDespesasActivity"
+            android:parentActivityName=".activity.HomeActivity" />
+        <activity
             android:name=".activity.HomeActivity"
             android:screenOrientation="portrait">
             <intent-filter>

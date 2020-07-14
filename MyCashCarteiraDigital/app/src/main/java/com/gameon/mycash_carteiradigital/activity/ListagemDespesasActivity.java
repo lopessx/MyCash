@@ -111,7 +111,7 @@ public class ListagemDespesasActivity extends AppCompatActivity{
     public void loadList(){
         OutputDAO outputDAO = new OutputDAO(getApplicationContext());
 
-        //Recebendo a lista vinda do InputDao
+        //Recebendo a lista vinda do OutputDao
         listOutput = outputDAO.list();
 
         //Passando lista para o AdapterListagemGanhos para a listagem

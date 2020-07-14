@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,7 +46,7 @@ public class CadastroDespesasActivity extends AppCompatActivity implements Adapt
         spinnerCategoryOutput.setOnItemSelectedListener(this);
 
         //Mudar título da toobar
-        getSupportActionBar().setTitle("Saída dos ganhos");
+        getSupportActionBar().setTitle("Adicionar despesa");
         //Botão de voltar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -103,6 +104,8 @@ public class CadastroDespesasActivity extends AppCompatActivity implements Adapt
                 //Mensagem para sinalizar que os dados foram salvos
                 Toast.makeText(getApplicationContext(), "Salvo com sucesso!",
                         Toast.LENGTH_SHORT).show();
+                
+                finish();
 
             } else {
                 //Mensagem de aviso casos os campos não tenham sido validados
@@ -119,7 +122,7 @@ public class CadastroDespesasActivity extends AppCompatActivity implements Adapt
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-        if (parent.getId() == R.id.spinnerCategoryInput) {
+        if (parent.getId() == R.id.spinnerCategoryOutput) {
             Long iDposition = parent.getItemIdAtPosition(position);
             String ctg = String.valueOf(iDposition);
 
@@ -129,34 +132,42 @@ public class CadastroDespesasActivity extends AppCompatActivity implements Adapt
                 case "0":
                     long food = 4;
                     idCategory.setIdCategory(food);
+                    Log.d("idCategory", "ID da categoria: " + idCategory.getIdCategory());
                     break;
                 case "1":
                     long rent = 5;
                     idCategory.setIdCategory(rent);
+                    Log.d("idCategory", "ID da categoria: " + idCategory.getIdCategory());
                     break;
                 case "2":
                     long water = 6;
                     idCategory.setIdCategory(water);
+                    Log.d("idCategory", "ID da categoria: " + idCategory.getIdCategory());
                     break;
                 case "3":
                     long energy = 7;
                     idCategory.setIdCategory(energy);
+                    Log.d("idCategory", "ID da categoria: " + idCategory.getIdCategory());
                     break;
                 case "4":
                     long creditcard = 8;
                     idCategory.setIdCategory(creditcard);
+                    Log.d("idCategory", "ID da categoria: " + idCategory.getIdCategory());
                     break;
                 case "5":
                     long fuel = 9;
                     idCategory.setIdCategory(fuel);
+                    Log.d("idCategory", "ID da categoria: " + idCategory.getIdCategory());
                     break;
                 case "6":
                     long fun = 10;
                     idCategory.setIdCategory(fun);
+                    Log.d("idCategory", "ID da categoria: " + idCategory.getIdCategory());
                     break;
                 case "7":
                     long other = 11;
                     idCategory.setIdCategory(other);
+                    Log.d("idCategory", "ID da categoria: " + idCategory.getIdCategory());
                     break;
             }
         }
