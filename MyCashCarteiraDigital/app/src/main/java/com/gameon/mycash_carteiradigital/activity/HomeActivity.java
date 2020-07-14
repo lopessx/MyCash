@@ -34,6 +34,13 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //Tela de listagem de despesas
+    public void consultarDespesas (View view){
+
+        Intent intent = new Intent(this,ListagemDespesasActivity.class);
+        startActivity(intent);
+    }
+
     //Função de mudança de tela que irá ser executada quando o botão for pressionado
     public void despesaTela(View view){
 
