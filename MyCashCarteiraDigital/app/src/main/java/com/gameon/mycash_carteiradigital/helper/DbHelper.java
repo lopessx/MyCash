@@ -16,7 +16,9 @@ import java.util.concurrent.ExecutionException;
 
 public class DbHelper extends SQLiteOpenHelper {
 
-    private static int VERSION = 1;
+    //TODO É NECESSÁRIO REFAZER O MÉTODO DE POPULAÇÃO DA TABELA TABLE_CATEGORY POIS ESTÁ POPULANDO DUPLICADO
+
+    private static int VERSION = 2;
     private static String NAME_BD = "MYCASH";
     public static String TABLE_CATEGORY = "category";
     public static String TABLE_INPUT = "input";
@@ -50,7 +52,8 @@ public class DbHelper extends SQLiteOpenHelper {
                 +" id_cat INTEGER NOT NULL,"
                 +" FOREIGN KEY (id_cat) REFERENCES "+ TABLE_CATEGORY +" (id_cat) ); ";
         //Tentei aqui também pra ver se ia
-        String populateCategory = "INSERT INTO "+ TABLE_CATEGORY +" (name_cat,type_cat) VALUES ('Salário','Entrada de dinheiro'),('Extra','Entrada de dinheiro'),('Outros Ganhos','Entrada de dinheiro');";
+        String populateCategory = "INSERT INTO "+ TABLE_CATEGORY +" (name_cat,type_cat) VALUES ('Salário','Entrada de dinheiro'),('Extra','Entrada de dinheiro'),('Outros Ganhos','Entrada de dinheiro'), " +
+                "('Alimentação','Saida de dinheiro'),('Aluguel','Saida de dinheiro'),('Água','Saida de dinheiro'),('Energia','Saida de dinheiro'),('Cartão de Crédito','Saida de dinheiro'),('Combustível','Saida de dinheiro'),('Lazer','Saida de dinheiro'),('Outras Despesas','Saida de dinheiro');";
         try{
             db.execSQL(tableCategorySQL);
             db.execSQL(tableInputSQL);
