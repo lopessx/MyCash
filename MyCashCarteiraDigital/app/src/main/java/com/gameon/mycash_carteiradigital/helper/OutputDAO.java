@@ -67,9 +67,11 @@ OutputDAO implements OutputDAOInterface {
     @Override
     public List<Output> list() {
         List<Output> outputList = new ArrayList<>();
-
+        //TODO TIRAR SOMA DO SQL
+        // Para fins de DEBUG foi colocado uma soma no sql para que a categoria das despesas
+        // fosse listada corretamente (apenas retirar após corrigir o DBHELPER)
         String sqlListInput = " SELECT * FROM "+ DbHelper.TABLE_OUTPUT +" INNER JOIN "
-                + DbHelper.TABLE_CATEGORY + " ON output.id_cat = category.id_cat ; ";
+                + DbHelper.TABLE_CATEGORY + " ON output.id_cat+3 = category.id_cat ; ";
 
         Cursor cursor = read.rawQuery(sqlListInput, null);
 
@@ -95,4 +97,23 @@ OutputDAO implements OutputDAOInterface {
 
         return outputList;
     }
+    //Função que calcula o total de gastos
+    public double totalSpending(){
+        double gastos=0;
+
+
+        String sqlOutput = " SELECT * FROM " + DbHelper.TABLE_OUTPUT;
+
+        Cursor cursor = read.rawQuery(sqlOutput,null);
+
+        while(cursor.moveToNext()){
+        //Soma todos os gastos da tabela do db
+            gastos+=cursor.getDouble(cursor.getColumnIndex("value_output"));
+
+        }
+
+
+        return gastos;
+    }
+
 }

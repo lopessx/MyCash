@@ -5,15 +5,36 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+
 
 import com.gameon.mycash_carteiradigital.R;
+import com.gameon.mycash_carteiradigital.helper.InputDAO;
+import com.gameon.mycash_carteiradigital.helper.OutputDAO;
 
 public class HomeActivity extends AppCompatActivity {
+
+    private double saldo=0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_home);
+
+        //Inicialização dos DAOs para tratar dos valores de entrada e saída
+        OutputDAO output = new OutputDAO(this);
+        InputDAO input = new InputDAO(this);
+
+        //Pega a view do layout
+        TextView saldoText = (TextView) findViewById(R.id.numSaldoTotal);
+
+        //Calculo do saldo
+        saldo = input.totalEarning() -  output.totalSpending();
+
+        //Visualização do saldo no textview
+        saldoText.setText("R$ " + String.format("%.2f", saldo));
 
         //Elevação da toobar
         getSupportActionBar().setElevation(0);
@@ -51,6 +72,13 @@ public class HomeActivity extends AppCompatActivity {
     public void graficoTela (View view){
 
         Intent intent = new Intent(this, GraficoActivity.class);
+        startActivity(intent);
+
+    }
+
+    public void graficoTelaDespesas (View view){
+
+        Intent intent = new Intent(this, GraficoDespesasActivity.class);
         startActivity(intent);
 
     }

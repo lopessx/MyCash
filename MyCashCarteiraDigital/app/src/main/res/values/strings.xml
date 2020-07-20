@@ -23,9 +23,9 @@
     <string name="graf">Gráfico:</string>
     <string name="tipo_g">Tipo de ganho</string>
     <string name="valor_ent">Valor de  entrada</string>
-    <string name="add_g">Adicionar Ganho</string>
+    <string name="add_g">Novo Ganho</string>
     <string name="ok">Confirmar</string>
-    <string name="saida_grana">Saida de dinheiro</string>
+    <string name="saida_grana">Novo Gasto</string>
     <string name="valor_sai">Valor do gasto</string>
     <string name="tipo_sai">Tipo de gasto</string>
     <string name="rel_gra">Relatorios</string>
