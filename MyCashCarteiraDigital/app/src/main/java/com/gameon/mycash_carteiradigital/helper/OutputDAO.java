@@ -13,7 +13,8 @@ import java.security.cert.CertificateParsingException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OutputDAO implements OutputDAOInterface {
+public class
+OutputDAO implements OutputDAOInterface {
 
     private SQLiteDatabase write;
     private SQLiteDatabase read;
@@ -69,6 +70,7 @@ public class OutputDAO implements OutputDAOInterface {
 
         String sqlListInput = " SELECT * FROM "+ DbHelper.TABLE_OUTPUT +" INNER JOIN "
                 + DbHelper.TABLE_CATEGORY + " ON output.id_cat = category.id_cat ; ";
+
         Cursor cursor = read.rawQuery(sqlListInput, null);
 
         while (cursor.moveToNext()){

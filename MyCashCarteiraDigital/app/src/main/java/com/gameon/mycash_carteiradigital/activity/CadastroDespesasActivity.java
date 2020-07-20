@@ -86,6 +86,7 @@ public class CadastroDespesasActivity extends AppCompatActivity implements Adapt
             String date = simpleDateFormat.format(d);
 
             Long idCtg = idCategory.getIdCategory();
+            Log.d("idCategory", "ID da categoria: " + idCtg);
 
             //Recebe a função de validação dos campos
             boolean validateFields = validatedFields(value, description);
@@ -132,42 +133,42 @@ public class CadastroDespesasActivity extends AppCompatActivity implements Adapt
                 case "0":
                     long food = 4;
                     idCategory.setIdCategory(food);
-                    Log.d("idCategory", "ID da categoria: " + idCategory.getIdCategory());
+
                     break;
                 case "1":
                     long rent = 5;
                     idCategory.setIdCategory(rent);
-                    Log.d("idCategory", "ID da categoria: " + idCategory.getIdCategory());
+
                     break;
                 case "2":
                     long water = 6;
                     idCategory.setIdCategory(water);
-                    Log.d("idCategory", "ID da categoria: " + idCategory.getIdCategory());
+
                     break;
                 case "3":
                     long energy = 7;
                     idCategory.setIdCategory(energy);
-                    Log.d("idCategory", "ID da categoria: " + idCategory.getIdCategory());
+
                     break;
                 case "4":
                     long creditcard = 8;
                     idCategory.setIdCategory(creditcard);
-                    Log.d("idCategory", "ID da categoria: " + idCategory.getIdCategory());
+
                     break;
                 case "5":
                     long fuel = 9;
                     idCategory.setIdCategory(fuel);
-                    Log.d("idCategory", "ID da categoria: " + idCategory.getIdCategory());
+
                     break;
                 case "6":
                     long fun = 10;
                     idCategory.setIdCategory(fun);
-                    Log.d("idCategory", "ID da categoria: " + idCategory.getIdCategory());
+
                     break;
                 case "7":
                     long other = 11;
                     idCategory.setIdCategory(other);
-                    Log.d("idCategory", "ID da categoria: " + idCategory.getIdCategory());
+
                     break;
             }
         }

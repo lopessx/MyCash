@@ -32,8 +32,6 @@ public class AdapterListagemDespesas extends RecyclerView.Adapter<AdapterListage
         this.listFilter = new ArrayList<>(outputList);
     }
 
-
-
     @NonNull
     @Override
     public MyOutputViewlHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -44,11 +42,11 @@ public class AdapterListagemDespesas extends RecyclerView.Adapter<AdapterListage
 
     @Override
     public void onBindViewHolder(@NonNull MyOutputViewlHolder holder, int position) {
-        Output output = outputList.get(position);;
-        holder.textDate.setText(output.getDateOutput());
-        holder.textDescription.setText(output.getDescriptionOutput());
-        holder.textValue.setText(output.getValueOutput().toString());
-        holder.textType.setText(output.getTypeOutput());
+        Output output = outputList.get(position);
+        holder.textDateOutput.setText(output.getDateOutput());
+        holder.textDescriptionOutPut.setText(output.getDescriptionOutput());
+        holder.textValueOutput.setText(output.getValueOutput().toString());
+        holder.textTypeOutput.setText(output.getTypeOutput());
     }
 
     @Override
@@ -101,18 +99,18 @@ public class AdapterListagemDespesas extends RecyclerView.Adapter<AdapterListage
 
     public class MyOutputViewlHolder extends RecyclerView.ViewHolder {
 
-        TextView textDate;
-        TextView textDescription;
-        TextView textValue;
-        TextView textType;
+        TextView textDateOutput;
+        TextView textDescriptionOutPut;
+        TextView textValueOutput;
+        TextView textTypeOutput;
 
         public MyOutputViewlHolder(@NonNull View itemView) {
             super(itemView);
 
-            textDate = itemView.findViewById(R.id.textDateOutput);
-            textDescription = itemView.findViewById(R.id.textDescriptionOutput);
-            textValue = itemView.findViewById(R.id.textValueOutput);
-            textType = itemView.findViewById(R.id.textTypeOutput);
+            textDateOutput = itemView.findViewById(R.id.textDateOutput);
+            textDescriptionOutPut = itemView.findViewById(R.id.textDescriptionOutput);
+            textValueOutput = itemView.findViewById(R.id.textValueOutput);
+            textTypeOutput = itemView.findViewById(R.id.textTypeOutput);
         }
     }
 }

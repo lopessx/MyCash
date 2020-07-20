@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -109,12 +110,12 @@ public class ListagemDespesasActivity extends AppCompatActivity{
     }
 
     public void loadList(){
-        OutputDAO outputDAO = new OutputDAO(getApplicationContext());
+        OutputDAO outputDAO = new OutputDAO(ListagemDespesasActivity.this);
 
         //Recebendo a lista vinda do OutputDao
         listOutput = outputDAO.list();
 
-        //Passando lista para o AdapterListagemGanhos para a listagem
+        //Passando lista para o AdapterListagemDespesas para a listagem
         adapterListagemDespesas = new AdapterListagemDespesas(listOutput);
 
         //Configurabdo o RecyclerView
