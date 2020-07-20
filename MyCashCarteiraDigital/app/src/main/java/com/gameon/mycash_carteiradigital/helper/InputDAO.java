@@ -115,4 +115,23 @@ public class InputDAO implements InputDAOInterface {
 
         return inputList;
     }
+
+    public double totalEarning(){
+        double ganhos=0;
+
+
+        String sqlInput = " SELECT * FROM " + DbHelper.TABLE_INPUT;
+
+        Cursor cursor = read.rawQuery(sqlInput,null);
+
+        while(cursor.moveToNext()){
+            //Soma todos os gastos da tabela do db
+            ganhos+=cursor.getDouble(cursor.getColumnIndex("value_input"));
+
+        }
+
+
+        return ganhos;
+    }
+
 }
