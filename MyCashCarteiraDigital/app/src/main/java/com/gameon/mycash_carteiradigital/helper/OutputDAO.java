@@ -101,7 +101,6 @@ OutputDAO implements OutputDAOInterface {
     public double totalSpending(){
         double gastos=0;
 
-
         String sqlOutput = " SELECT * FROM " + DbHelper.TABLE_OUTPUT;
 
         Cursor cursor = read.rawQuery(sqlOutput,null);

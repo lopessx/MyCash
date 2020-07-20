@@ -66,15 +66,15 @@ public class GraficoDespesasActivity extends AppCompatActivity {
                     double v2 = out.getValueOutput();
                     value2 = value2 + (float) v2;
                     break;
-                case "Conta de água":
+                case "Água":
                     double v3 = out.getValueOutput();
                     value3 = value3 + (float) v3;
                     break;
-                case "Conta de luz":
+                case "Energia":
                     double v4 = out.getValueOutput();
                     value4 = value4 + (float) v4;
                     break;
-                case "Cartão de crédito":
+                case "Cartão de Crédito":
                     double v5 = out.getValueOutput();
                     value5 = value5 + (float) v5;
                     break;
@@ -86,14 +86,14 @@ public class GraficoDespesasActivity extends AppCompatActivity {
                     double v7 = out.getValueOutput();
                     value7 = value7 + (float) v7;
                     break;
-                case "Outros":
+                case "Outras Despesas":
                     double v8 = out.getValueOutput();
                     value8 = value8 + (float) v8;
                     break;
             }
         }
 
-        float[] values = {value1, value2, value3};
+        float[] values = {value1, value2, value3, value4, value5, value6, value7, value8};
         String[] types = {"Alimentação", "Aluguel", "Conta de água","Conta de luz", "Cartão de crédito", "Combustível","Lazer", "Outros"};
 
         /** Preechendo o gráfico **/

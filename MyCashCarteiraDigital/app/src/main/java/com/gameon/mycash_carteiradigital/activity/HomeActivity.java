@@ -17,28 +17,35 @@ public class HomeActivity extends AppCompatActivity {
 
     private double saldo=0;
 
+    private TextView saldoText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_home);
 
+        //Elevação da toobar
+        getSupportActionBar().setElevation(0);
+
+    }
+
+    //Atualizar o saldo sempre que a tela Home for chamada
+    @Override
+    protected void onStart() {
+        super.onStart();
+
         //Inicialização dos DAOs para tratar dos valores de entrada e saída
         OutputDAO output = new OutputDAO(this);
         InputDAO input = new InputDAO(this);
 
         //Pega a view do layout
-        TextView saldoText = (TextView) findViewById(R.id.numSaldoTotal);
+        saldoText = findViewById(R.id.numSaldoTotal);
 
         //Calculo do saldo
         saldo = input.totalEarning() -  output.totalSpending();
 
         //Visualização do saldo no textview
         saldoText.setText("R$ " + String.format("%.2f", saldo));
-
-        //Elevação da toobar
-        getSupportActionBar().setElevation(0);
-
     }
 
     //Função de mudança de tela que irá ser executada quando o botão for pressionado

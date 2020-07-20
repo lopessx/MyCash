@@ -45,7 +45,7 @@ public class AdapterListagemDespesas extends RecyclerView.Adapter<AdapterListage
         Output output = outputList.get(position);
         holder.textDateOutput.setText(output.getDateOutput());
         holder.textDescriptionOutPut.setText(output.getDescriptionOutput());
-        holder.textValueOutput.setText(output.getValueOutput().toString());
+        holder.textValueOutput.setText("R$ " + String.format("%.2f", output.getValueOutput()));
         holder.textTypeOutput.setText(output.getTypeOutput());
     }
 

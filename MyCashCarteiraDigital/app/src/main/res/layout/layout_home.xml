@@ -31,7 +31,7 @@
         android:alignmentMode="alignBounds"
         android:columnCount="2"
         android:columnOrderPreserved="false"
-        android:rowCount="2">
+        android:rowCount="3">
 
         <!-- 1 / 1 -->
         <androidx.cardview.widget.CardView

@@ -77,7 +77,9 @@ public class CadastroDespesasActivity extends AppCompatActivity implements Adapt
         int id = item.getItemId();
 
         if (id == R.id.menuFinish) {
-            String value = outputValue.getText().toString();
+            //Valor digitado pelo usuário
+            String value1 = outputValue.getText().toString();
+
             String description = outputDescription.getText().toString();
 
             //Configurar formato da data e setar seu valor
@@ -89,12 +91,18 @@ public class CadastroDespesasActivity extends AppCompatActivity implements Adapt
             Log.d("idCategory", "ID da categoria: " + idCtg);
 
             //Recebe a função de validação dos campos
-            boolean validateFields = validatedFields(value, description);
+            boolean validateFields = validatedFields(value1, description);
 
             if (validateFields) {
                 Output output = new Output();
 
-                output.setValueOutput(Double.parseDouble(value));
+                //Tratar números negativos
+                Double valueFinal = Double.parseDouble(value1);
+                if (valueFinal < 0){
+                    valueFinal = valueFinal * -1;
+                }
+
+                output.setValueOutput(valueFinal);
                 output.setDescriptionOutput(description);
                 output.setDateOutput(date);
                 output.setIdCategory(idCtg);

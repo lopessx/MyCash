@@ -25,6 +25,9 @@
             android:name=".activity.GraficoActivity"
             android:parentActivityName=".activity.HomeActivity" />
         <activity
+            android:name=".activity.GraficoDespesasActivity"
+            android:parentActivityName=".activity.HomeActivity" />
+        <activity
             android:name=".activity.ListagemGanhosActivity"
             android:parentActivityName=".activity.HomeActivity" />
         <activity

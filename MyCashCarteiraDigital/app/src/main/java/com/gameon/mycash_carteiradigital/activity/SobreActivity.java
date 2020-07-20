@@ -36,14 +36,13 @@ public class SobreActivity extends AppCompatActivity {
                 .addGitHub("", "GitHub")
                 .addInstagram("", "Instagram")
 
-                .addGroup("José Emanuel")
+                .addGroup("Emanuel Lopes")
                 .addGitHub("lopessx", "GitHub")
-                .addInstagram("", "Instagram")
+                .addInstagram("emanuellopesss", "Instagram")
 
                 .addGroup("Josivânio Marinho")
                 .addGitHub("JosivanioMarinho", "GitHub")
-                .addInstagram("josivaniomarinho",
-                        "Instagram")
+                .addInstagram("josivaniomarinho", "Instagram")
 
                 .addGroup("Miguel Barbosa")
                 .addGitHub("miguel8000", "GitHub")
@@ -51,7 +50,7 @@ public class SobreActivity extends AppCompatActivity {
 
                 .addGroup("Vitor Falcão")
                 .addGitHub("VictorGameOn", "GitHub")
-                .addInstagram("", "Instagram")
+                .addInstagram("victor_falcao33", "Instagram")
 
                 .addItem(versionElement)
 

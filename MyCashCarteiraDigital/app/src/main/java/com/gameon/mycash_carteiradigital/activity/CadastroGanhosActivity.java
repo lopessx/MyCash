@@ -72,7 +72,9 @@ public class CadastroGanhosActivity extends AppCompatActivity implements Adapter
         int id = item.getItemId();
 
         if (id == R.id.menuFinish){
-            String value = inputValue.getText().toString();
+            //Valor digitado pelo usuário
+            String value1 = inputValue.getText().toString();
+
             String description = inputDescription.getText().toString();
 
             //Configurar formato da data e setar seu valor
@@ -83,12 +85,18 @@ public class CadastroGanhosActivity extends AppCompatActivity implements Adapter
             Long idCtg = idCategory.getIdCategory();
 
             //Recebe a função de validação dos campos
-            boolean validateFields = validatedFields(value, description);
+            boolean validateFields = validatedFields(value1, description);
 
             if (validateFields){
                 Input input = new Input();
 
-                input.setValueInput(Double.parseDouble(value));
+                //Tratar números negativos
+                Double valueFinal = Double.parseDouble(value1);
+                if (valueFinal < 0){
+                    valueFinal = valueFinal * -1;
+                }
+
+                input.setValueInput(valueFinal);
                 input.setDescriptionInput(description);
                 input.setDateInput(date);
                 input.setIdCategory(idCtg);

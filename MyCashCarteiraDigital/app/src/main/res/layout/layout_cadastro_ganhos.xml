@@ -23,7 +23,8 @@
             android:id="@+id/inputValueInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/valor_ent" />
+            android:hint="@string/valor_ent"
+            android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
