@@ -39,7 +39,7 @@
     <!-- Array do spinner container na tela de cadastro de ganhos -->
     <string name="food">Alimentação</string>
     <string name="rent">Aluguel</string>
-    <string name="water">Conta de água</string>
+    <string name="water">Água</string>
     <string name="electricity">Conta de luz</string>
     <string name="credit_card">Cartão de crédito</string>
     <string name="fuel">Combustivel</string>

@@ -2,6 +2,7 @@ package com.gameon.mycash_carteiradigital.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -9,6 +10,8 @@ import com.gameon.mycash_carteiradigital.R;
 import com.gameon.mycash_carteiradigital.helper.InputDAO;
 import com.gameon.mycash_carteiradigital.model.Input;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -46,6 +49,9 @@ public class GraficoActivity extends AppCompatActivity {
         float value1=0;
         float value2=0;
         float value3=0;
+        String type1="";
+        String type2="";
+        String type3="";
 
         for ( int i=0; i < inputsDb.size(); i++ ) {
 
@@ -54,35 +60,48 @@ public class GraficoActivity extends AppCompatActivity {
                 case "Salário":
                     double v1 = inp.getValueInput();
                     value1 = value1 + (float) v1;
+                    type1 = inp.getTypeInput();
                     break;
                 case "Extra":
                     double v2 = inp.getValueInput();
                     value2 = value2 + (float) v2;
+                    type2 = inp.getTypeInput();
                     break;
                 case "Outros Ganhos":
                     double v3 = inp.getValueInput();
                     value3 = value3 + (float) v3;
+                    type3 = inp.getTypeInput();
                     break;
             }
         }
 
         float[] values = {value1, value2, value3};
-        String[] types = {"Salário", "Extras", "Outros"};
+        String[] types = {type1, type2, type3};
 
         /** Preechendo o gráfico **/
         for (int i=0; i < types.length; i++){
             inputsChar.add(new PieEntry( values[i], types[i]));
         }
 
-        PieDataSet pieDataSet = new PieDataSet(inputsChar, "Gráfico de ganhos");
+        PieDataSet pieDataSet = new PieDataSet(inputsChar, null);
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
 
         PieData pieData = new PieData();
         pieData.setDataSet(pieDataSet);
 
+        //Descrição
+        Description description = pieChart.getDescription();
+        description.setText("Ganhos");
+        description.setTextSize(14);
+
+        //Configurar legendas
+        Legend legend = pieChart.getLegend();
+        legend.setTextSize(14);
+
         pieChart.animateY(1000);
         pieChart.setData(pieData);
         pieChart.invalidate();
+
     }
 }
 
