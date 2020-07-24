@@ -31,6 +31,7 @@ public class CadastroDespesasActivity extends AppCompatActivity implements Adapt
     private Spinner spinnerCategoryOutput;
     private TextInputEditText outputValue;
     private TextInputEditText outputDescription;
+    private Button buttonSalve;
     private Output idCategory;
 
     @Override
@@ -41,6 +42,7 @@ public class CadastroDespesasActivity extends AppCompatActivity implements Adapt
         //recuperando IDs dos componentes View
         outputValue = findViewById(R.id.inputValueOutput);
         outputDescription = findViewById(R.id.inputDescriptionOutput);
+        buttonSalve = findViewById(R.id.buttonSalvarGasto);
         spinnerCategoryOutput = findViewById(R.id.spinnerCategoryOutput);
         //click do spinner
         spinnerCategoryOutput.setOnItemSelectedListener(this);
@@ -57,74 +59,69 @@ public class CadastroDespesasActivity extends AppCompatActivity implements Adapt
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategoryOutput.setAdapter(arrayAdapter);
 
+        //Click do botãp pra salvar os gastos
+        buttonSalve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                saveSpences();
+            }
+        });
 
     }
 
-    //Botão para salvar, na toobar
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_finish, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    //Click do botão para salvas os dados
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public void saveSpences(){
 
         OutputDAO outputDAO = new OutputDAO(getApplicationContext());
 
-        int id = item.getItemId();
+        //Valor digitado pelo usuário
+        String value1 = outputValue.getText().toString();
 
-        if (id == R.id.menuFinish) {
-            //Valor digitado pelo usuário
-            String value1 = outputValue.getText().toString();
+        String description = outputDescription.getText().toString();
 
-            String description = outputDescription.getText().toString();
+        //Configurar formato da data e setar seu valor
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyy");
+        Date d = new Date();
+        String date = simpleDateFormat.format(d);
 
-            //Configurar formato da data e setar seu valor
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyy");
-            Date d = new Date();
-            String date = simpleDateFormat.format(d);
+        Long idCtg = idCategory.getIdCategory();
+        Log.d("idCategory", "ID da categoria: " + idCtg);
 
-            Long idCtg = idCategory.getIdCategory();
-            Log.d("idCategory", "ID da categoria: " + idCtg);
+        //Recebe a função de validação dos campos
+        boolean validateFields = validatedFields(value1, description);
 
-            //Recebe a função de validação dos campos
-            boolean validateFields = validatedFields(value1, description);
+        if (validateFields) {
+            Output output = new Output();
 
-            if (validateFields) {
-                Output output = new Output();
-
-                //Tratar números negativos
-                Double valueFinal = Double.parseDouble(value1);
-                if (valueFinal < 0){
-                    valueFinal = valueFinal * -1;
-                }
-
-                output.setValueOutput(valueFinal);
-                output.setDescriptionOutput(description);
-                output.setDateOutput(date);
-                output.setIdCategory(idCtg);
-
-                //salva no banco de dados
-                outputDAO.save(output);
-
-                //Mensagem para sinalizar que os dados foram salvos
-                Toast.makeText(getApplicationContext(), "Salvo com sucesso!",
-                        Toast.LENGTH_SHORT).show();
-                
-                finish();
-
-            } else {
-                //Mensagem de aviso casos os campos não tenham sido validados
-                Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos!",
-                        Toast.LENGTH_SHORT).show();
+            //Tratar números negativos
+            Double valueFinal = Double.parseDouble(value1);
+            if (valueFinal < 0){
+                valueFinal = valueFinal * -1;
             }
 
+            output.setValueOutput(valueFinal);
+            output.setDescriptionOutput(description);
+            output.setDateOutput(date);
+            output.setIdCategory(idCtg);
+
+            //salva no banco de dados
+            outputDAO.save(output);
+
+            //Mensagem para sinalizar que os dados foram salvos
+            Toast.makeText(getApplicationContext(), "Salvo com sucesso!",
+                    Toast.LENGTH_SHORT).show();
+
+            //Reiniciar a activity
+            finish();
+            startActivity(new Intent(getApplicationContext(), CadastroDespesasActivity.class));
+
+        } else {
+            //Mensagem de aviso casos os campos não tenham sido validados
+            Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos!",
+                    Toast.LENGTH_SHORT).show();
         }
 
-        return super.onOptionsItemSelected(item);
+
     }
 
     //Métodos de click para o Spinner

@@ -28,6 +28,7 @@ public class CadastroGanhosActivity extends AppCompatActivity implements Adapter
     private Spinner spinnerCategoryInput;
     private TextInputEditText inputValue;
     private TextInputEditText inputDescription;
+    private Button buttonSave;
     private Input idCategory;
 
     @Override
@@ -38,6 +39,7 @@ public class CadastroGanhosActivity extends AppCompatActivity implements Adapter
         //recuperando IDs dos componentes View
         inputValue       = findViewById(R.id.inputValueInput);
         inputDescription = findViewById(R.id.inputDescriptionInput);
+        buttonSave = findViewById(R.id.buttonSalvarGanho);
         spinnerCategoryInput  = findViewById(R.id.spinnerCategoryInput);
         //click do spinner
         spinnerCategoryInput.setOnItemSelectedListener(this);
@@ -54,71 +56,68 @@ public class CadastroGanhosActivity extends AppCompatActivity implements Adapter
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategoryInput.setAdapter(arrayAdapter);
 
+        //Clique do botão para salvar
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                salveEarnings();
+            }
+        });
+
     }
 
-    //Botão para salvar, na toobar
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_finish, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    //Click do botão para salvas os dados
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    //Metodo chamado pelo botão para salvar
+    public void salveEarnings(){
 
         InputDAO inputDAO = new InputDAO(getApplicationContext());
 
-        int id = item.getItemId();
+        //Valor digitado pelo usuário
+        String value1 = inputValue.getText().toString();
 
-        if (id == R.id.menuFinish){
-            //Valor digitado pelo usuário
-            String value1 = inputValue.getText().toString();
+        String description = inputDescription.getText().toString();
 
-            String description = inputDescription.getText().toString();
+        //Configurar formato da data e setar seu valor
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyy");
+        Date d = new Date();
+        String date = simpleDateFormat.format(d);
 
-            //Configurar formato da data e setar seu valor
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyy");
-            Date d = new Date();
-            String date = simpleDateFormat.format(d);
+        Long idCtg = idCategory.getIdCategory();
 
-            Long idCtg = idCategory.getIdCategory();
+        //Recebe a função de validação dos campos
+        boolean validateFields = validatedFields(value1, description);
 
-            //Recebe a função de validação dos campos
-            boolean validateFields = validatedFields(value1, description);
+        if (validateFields){
+            Input input = new Input();
 
-            if (validateFields){
-                Input input = new Input();
-
-                //Tratar números negativos
-                Double valueFinal = Double.parseDouble(value1);
-                if (valueFinal < 0){
-                    valueFinal = valueFinal * -1;
-                }
-
-                input.setValueInput(valueFinal);
-                input.setDescriptionInput(description);
-                input.setDateInput(date);
-                input.setIdCategory(idCtg);
-
-                //salva no bando de dados
-                inputDAO.save(input);
-
-                //Mensagem para sinalizar que os dados foram salvos
-                Toast.makeText(getApplicationContext(), "Salvo com sucesso!",
-                        Toast.LENGTH_SHORT).show();
-
-                //Finaliza a activity
-                finish();
-            }else{
-                //Mensagem de aviso casos os campos não tenham sido validados
-                Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos!",
-                        Toast.LENGTH_SHORT).show();
+            //Tratar números negativos
+            Double valueFinal = Double.parseDouble(value1);
+            if (valueFinal < 0){
+                valueFinal = valueFinal * -1;
             }
 
+            input.setValueInput(valueFinal);
+            input.setDescriptionInput(description);
+            input.setDateInput(date);
+            input.setIdCategory(idCtg);
+
+            //salva no bando de dados
+            inputDAO.save(input);
+
+            //Mensagem para sinalizar que os dados foram salvos
+            Toast.makeText(getApplicationContext(), "Salvo com sucesso!",
+                    Toast.LENGTH_SHORT).show();
+
+            //Reinicia a activity
+            finish();
+            startActivity(new Intent(getApplicationContext(), CadastroGanhosActivity.class));
+
+        }else{
+            //Mensagem de aviso casos os campos não tenham sido validados
+            Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos!",
+                    Toast.LENGTH_SHORT).show();
         }
 
-        return super.onOptionsItemSelected(item);
     }
 
     //Métodos de click para o Spinner
