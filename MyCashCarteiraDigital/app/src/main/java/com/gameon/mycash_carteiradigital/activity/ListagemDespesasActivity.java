@@ -4,13 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,6 +39,7 @@ public class ListagemDespesasActivity extends AppCompatActivity{
     private List<Output> listOutput = new ArrayList<>();
     private Output outputSelected = new Output();
     AdapterListagemDespesas adapterListagemDespesas;
+    private static final String PREFERENCE_2 = "dialog_ON_OFF_2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +112,16 @@ public class ListagemDespesasActivity extends AppCompatActivity{
                 )
         );
 
+        //Salvar a escolha do usuário, se ele quer ou não desativar o Dialog.
+        SharedPreferences preferences = getSharedPreferences(PREFERENCE_2, 0);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putBoolean("dialogON_2", true);
+
+        if (preferences.contains("dialogON_2") && preferences.getBoolean("dialogON_2", true) == true){
+            showDialog();
+        }
+
     }
 
     public void loadList(){
@@ -164,6 +179,46 @@ public class ListagemDespesasActivity extends AppCompatActivity{
     protected void onStart() {
         loadList();
         super.onStart();
+    }
+
+    //Dialog de innstrução para ensinar o usuário a excluir itens
+    public void showDialog(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ListagemDespesasActivity.this, R.style.AlertDialogTheme);
+        View view = LayoutInflater.from(ListagemDespesasActivity.this)
+                .inflate(R.layout.layout_dialog, (ConstraintLayout) findViewById(R.id.layoutDialogContainer));
+        builder.setView(view);
+
+        final AlertDialog alertDialog = builder.create();
+
+        view.findViewById(R.id.buttonDialogYes).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Salvar a escolha do usuário, se ele quer desativar o Dialog/ instrução de como excluir um item.
+                SharedPreferences preferences = getSharedPreferences(PREFERENCE_2, 0);
+                SharedPreferences.Editor editor = preferences.edit();
+
+                editor.putBoolean("dialogON_2", false);
+                editor.commit();
+
+                alertDialog.dismiss();
+            }
+        });
+
+        view.findViewById(R.id.buttonDialogNo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        if (alertDialog.getWindow() != null){
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        }
+
+        alertDialog.show();
+
     }
 
 }

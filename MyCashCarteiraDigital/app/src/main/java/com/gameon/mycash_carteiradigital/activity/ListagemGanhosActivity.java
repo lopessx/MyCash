@@ -4,16 +4,22 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Layout;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -32,6 +38,7 @@ public class ListagemGanhosActivity extends AppCompatActivity {
     private List<Input> listInput = new ArrayList<>();
     private Input inputSelected = new Input();
     AdapterListagemGanhos adapterListagemGanhos;
+    private static final String PREFERENCE_1 = "dialog_ON_OFF_1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +111,16 @@ public class ListagemGanhosActivity extends AppCompatActivity {
                 )
         );
 
+        //Salvar a escolha do usuário, se ele quer ou não desativar o Dialog.
+        SharedPreferences preferences = getSharedPreferences(PREFERENCE_1, 0);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putBoolean("dialogON_1", true);
+
+        if (preferences.contains("dialogON_1") && preferences.getBoolean("dialogON_1", true) == true){
+            showDialog();
+        }
+
     }
 
     public void loadList(){
@@ -152,7 +169,6 @@ public class ListagemGanhosActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -160,7 +176,47 @@ public class ListagemGanhosActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         loadList();
+
         super.onStart();
+    }
+
+    public void showDialog(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ListagemGanhosActivity.this, R.style.AlertDialogTheme);
+        View view = LayoutInflater.from(ListagemGanhosActivity.this)
+                .inflate(R.layout.layout_dialog, (ConstraintLayout) findViewById(R.id.layoutDialogContainer));
+        builder.setView(view);
+
+        final AlertDialog alertDialog = builder.create();
+
+        view.findViewById(R.id.buttonDialogYes).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Salvar a escolha do usuário, se ele quer desativar o Dialog/ instrução de como excluir um item
+                SharedPreferences preferences = getSharedPreferences(PREFERENCE_1, 0);
+                SharedPreferences.Editor editor = preferences.edit();
+
+                editor.putBoolean("dialogON_1", false);
+                editor.commit();
+
+                alertDialog.dismiss();
+            }
+        });
+
+        view.findViewById(R.id.buttonDialogNo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        if (alertDialog.getWindow() != null){
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        }
+
+        alertDialog.show();
+
     }
 
 }

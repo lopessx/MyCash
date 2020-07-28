@@ -33,10 +33,10 @@
 
     <!-- Array do spinner container na tela de cadastro de ganhos -->
     <string name="salary">Salário</string>
+    <string name="extras">Extras</string>
     <string name="others">Outros</string>
 
-
-    <!-- Array do spinner container na tela de cadastro de ganhos -->
+    <!-- Array do spinner container na tela de cadastro de gastos -->
     <string name="food">Alimentação</string>
     <string name="rent">Aluguel</string>
     <string name="water">Água</string>
@@ -45,5 +45,9 @@
     <string name="fuel">Combustivel</string>
     <string name="recreation">Lazer</string>
     <string name="others2">Outros</string>
+
+    <string name="titleDialog">Dica</string>
+    <string name="remember">Lembreme</string>
+
 
 </resources>
