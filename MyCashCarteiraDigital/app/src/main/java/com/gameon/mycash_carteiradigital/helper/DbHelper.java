@@ -18,11 +18,16 @@ public class DbHelper extends SQLiteOpenHelper {
 
     //TODO É NECESSÁRIO REFAZER O MÉTODO DE POPULAÇÃO DA TABELA TABLE_CATEGORY POIS ESTÁ POPULANDO DUPLICADO
 
-    private static int VERSION = 2;
+    private static int VERSION = 3;
     private static String NAME_BD = "MYCASH";
     public static String TABLE_CATEGORY = "category";
     public static String TABLE_INPUT = "input";
     public static String TABLE_OUTPUT = "output";
+
+    //String para popular a tabela de categorias
+    String populateCategory = "INSERT INTO "+ TABLE_CATEGORY +" (id_cat,name_cat,type_cat) VALUES (1,'Salário','Entrada de dinheiro'),(2,'Extra','Entrada de dinheiro'),(3,'Outros Ganhos','Entrada de dinheiro'), " +
+            "(4,'Alimentação','Saida de dinheiro'),(5,'Aluguel','Saida de dinheiro'),(6,'Água','Saida de dinheiro'),(7,'Energia','Saida de dinheiro'),(8,'Cartão de Crédito','Saida de dinheiro'),(9,'Combustível','Saida de dinheiro'),(10,'Lazer','Saida de dinheiro'),(11,'Outras Despesas','Saida de dinheiro');";
+
 
     public DbHelper(@Nullable Context context) {
         super(context, NAME_BD, null, VERSION);
@@ -32,7 +37,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String tableCategorySQL = " CREATE TABLE IF NOT EXISTS "+ TABLE_CATEGORY
-                +" (id_cat INTEGER PRIMARY KEY AUTOINCREMENT,"
+                +" (id_cat INTEGER PRIMARY KEY,"
                 +" name_cat TEXT NOT NULL,"
                 +" type_cat TEXT NOT NULL ); ";
 
@@ -51,9 +56,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 +" description_output TEXT NOT NULL,"
                 +" id_cat INTEGER NOT NULL,"
                 +" FOREIGN KEY (id_cat) REFERENCES "+ TABLE_CATEGORY +" (id_cat) ); ";
-        //Tentei aqui também pra ver se ia
-        String populateCategory = "INSERT INTO "+ TABLE_CATEGORY +" (name_cat,type_cat) VALUES ('Salário','Entrada de dinheiro'),('Extra','Entrada de dinheiro'),('Outros Ganhos','Entrada de dinheiro'), " +
-                "('Alimentação','Saida de dinheiro'),('Aluguel','Saida de dinheiro'),('Água','Saida de dinheiro'),('Energia','Saida de dinheiro'),('Cartão de Crédito','Saida de dinheiro'),('Combustível','Saida de dinheiro'),('Lazer','Saida de dinheiro'),('Outras Despesas','Saida de dinheiro');";
+
         try{
             db.execSQL(tableCategorySQL);
             db.execSQL(tableInputSQL);
@@ -69,11 +72,12 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //String para inserir dados no category
-        String populateCategory = "INSERT INTO "+ TABLE_CATEGORY +" (name_cat,type_cat) VALUES ('Salário','Entrada de dinheiro'),('Extra','Entrada de dinheiro'),('Outros Ganhos','Entrada de dinheiro')," +
-                "('Alimentação','Saida de dinheiro'),('Aluguel','Saida de dinheiro'),('Água','Saida de dinheiro'),('Energia','Saida de dinheiro'),('Cartão de Crédito','Saida de dinheiro'),('Combustível','Saida de dinheiro'),('Lazer','Saida de dinheiro'),('Outras Despesas','Saida de dinheiro');";
+        //String para excluir os dados na tabela category
+        String resetCategory = " DELETE FROM  " + TABLE_CATEGORY ;
+
         //Vai tentar executar o SQL da String
         try{
+            db.execSQL(resetCategory);
             db.execSQL(populateCategory);
             Log.i("infotables", "onUpgrade: Sucesso ao popular tabela category!");
         }catch (Exception e){

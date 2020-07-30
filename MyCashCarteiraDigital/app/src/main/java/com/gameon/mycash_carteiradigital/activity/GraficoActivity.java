@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.GetChars;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.gameon.mycash_carteiradigital.R;
 import com.gameon.mycash_carteiradigital.helper.InputDAO;
@@ -78,10 +81,19 @@ public class GraficoActivity extends AppCompatActivity {
         float[] values = {value1, value2, value3};
         String[] types = {type1, type2, type3};
 
+
+
         /** Preechendo o gráfico **/
         for (int i=0; i < types.length; i++){
-            inputsChar.add(new PieEntry( values[i], types[i]));
+
+            if(values[i]>0){
+                inputsChar.add(new PieEntry( values[i], types[i]));
+            }
+
+
         }
+
+
 
         PieDataSet pieDataSet = new PieDataSet(inputsChar, null);
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
