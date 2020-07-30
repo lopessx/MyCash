@@ -111,6 +111,7 @@ public class ListagemGanhosActivity extends AppCompatActivity {
                 )
         );
 
+        /** Dialog personalizado **/
         //Salvar a escolha do usuário, se ele quer ou não desativar o Dialog.
         SharedPreferences preferences = getSharedPreferences(PREFERENCE_1, 0);
         SharedPreferences.Editor editor = preferences.edit();
@@ -180,6 +181,9 @@ public class ListagemGanhosActivity extends AppCompatActivity {
         super.onStart();
     }
 
+    /** Dialog personalizado **/
+    //Função de configuração do Dialog
+    //Dialog de innstrução para ensinar o usuário a excluir itens
     public void showDialog(){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(ListagemGanhosActivity.this, R.style.AlertDialogTheme);

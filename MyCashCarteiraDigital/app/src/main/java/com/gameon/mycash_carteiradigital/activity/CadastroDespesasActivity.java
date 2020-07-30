@@ -52,7 +52,7 @@ public class CadastroDespesasActivity extends AppCompatActivity implements Adapt
         //Botão de voltar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //Configurando DropDown das categorias de ganhos
+        //Configurando Spinner das categorias de ganhos
         String[] categorys = getResources().getStringArray(R.array.expenses_category);
         ArrayAdapter arrayAdapter = new ArrayAdapter(
                 this, android.R.layout.simple_spinner_item, categorys);
@@ -83,8 +83,8 @@ public class CadastroDespesasActivity extends AppCompatActivity implements Adapt
         Date d = new Date();
         String date = simpleDateFormat.format(d);
 
+        //Esse ID é selecionado no Spinner. assim sabemos qual o tipo de gasto o usuário escolhei
         Long idCtg = idCategory.getIdCategory();
-        Log.d("idCategory", "ID da categoria: " + idCtg);
 
         //Recebe a função de validação dos campos
         boolean validateFields = validatedFields(value1, description);
@@ -127,12 +127,15 @@ public class CadastroDespesasActivity extends AppCompatActivity implements Adapt
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+        //Recuperar o ID do item selecionado no Spinner
         if (parent.getId() == R.id.spinnerCategoryOutput) {
             Long iDposition = parent.getItemIdAtPosition(position);
             String ctg = String.valueOf(iDposition);
 
+            //Intância do objeto que vai receber esse id
             idCategory = new Output();
 
+            //Laço para setar o ID no objeto de acordo com o tipo de gasto escolhido no Spinner
             switch (ctg) {
                 case "0":
                     long food = 4;

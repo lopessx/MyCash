@@ -112,6 +112,7 @@ public class ListagemDespesasActivity extends AppCompatActivity{
                 )
         );
 
+        /** Dialog personalizado **/
         //Salvar a escolha do usuário, se ele quer ou não desativar o Dialog.
         SharedPreferences preferences = getSharedPreferences(PREFERENCE_2, 0);
         SharedPreferences.Editor editor = preferences.edit();
@@ -181,7 +182,9 @@ public class ListagemDespesasActivity extends AppCompatActivity{
         super.onStart();
     }
 
+    /** Dialog personalizado **/
     //Dialog de innstrução para ensinar o usuário a excluir itens
+    //Função de configuração do Dialog
     public void showDialog(){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(ListagemDespesasActivity.this, R.style.AlertDialogTheme);

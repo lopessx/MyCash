@@ -60,7 +60,6 @@ public class CadastroGanhosActivity extends AppCompatActivity implements Adapter
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 salveEarnings();
             }
         });
@@ -82,6 +81,7 @@ public class CadastroGanhosActivity extends AppCompatActivity implements Adapter
         Date d = new Date();
         String date = simpleDateFormat.format(d);
 
+        //Esse ID é selecionado no Spinner. assim sabemos qual o tipo de ganho o usuário escolhei
         Long idCtg = idCategory.getIdCategory();
 
         //Recebe a função de validação dos campos
@@ -124,12 +124,15 @@ public class CadastroGanhosActivity extends AppCompatActivity implements Adapter
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+        //Recuperar o ID do item selecionado no Spinner
         if (parent.getId() == R.id.spinnerCategoryInput){
             Long iDposition = parent.getItemIdAtPosition(position);
             String ctg = String.valueOf(iDposition);
 
+            //Intância do objeto que vai receber esse id
             idCategory = new Input();
 
+            //Laço para setar o ID no objeto de acordo com o tipo de gasto escolhido no Spinner
            switch (ctg){
                case "0":
                    long salary = 1;

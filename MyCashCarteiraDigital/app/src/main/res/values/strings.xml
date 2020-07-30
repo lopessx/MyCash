@@ -40,9 +40,9 @@
     <string name="food">Alimentação</string>
     <string name="rent">Aluguel</string>
     <string name="water">Água</string>
-    <string name="electricity">Conta de luz</string>
+    <string name="electricity">Energia</string>
     <string name="credit_card">Cartão de crédito</string>
-    <string name="fuel">Combustivel</string>
+    <string name="fuel">Combustível</string>
     <string name="recreation">Lazer</string>
     <string name="others2">Outros</string>
 

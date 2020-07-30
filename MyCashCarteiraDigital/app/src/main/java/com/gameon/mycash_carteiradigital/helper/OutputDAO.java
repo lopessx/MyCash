@@ -109,7 +109,6 @@ OutputDAO implements OutputDAOInterface {
 
         }
 
-
         return gastos;
     }
 
