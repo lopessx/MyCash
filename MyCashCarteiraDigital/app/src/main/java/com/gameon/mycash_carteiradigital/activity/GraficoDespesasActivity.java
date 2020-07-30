@@ -3,6 +3,7 @@ package com.gameon.mycash_carteiradigital.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -11,12 +12,14 @@ import com.gameon.mycash_carteiradigital.helper.InputDAO;
 import com.gameon.mycash_carteiradigital.helper.OutputDAO;
 import com.gameon.mycash_carteiradigital.model.Input;
 import com.gameon.mycash_carteiradigital.model.Output;
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
@@ -43,6 +46,10 @@ public class GraficoDespesasActivity extends AppCompatActivity {
 
         pieChart = findViewById(R.id.pieChartSpendings);
 
+        //insere a mensagem que aparece caso não tenha dados no chart
+        pieChart.setNoDataText("Sem dados disponíveis");
+
+
         //recuperar os dados do BD
         OutputDAO outputDAO = new OutputDAO(getApplicationContext());
         outputsDb = outputDAO.list();
@@ -50,6 +57,7 @@ public class GraficoDespesasActivity extends AppCompatActivity {
         /** cria uma lista do tipo PieChar **/
         List<PieEntry> outputsChar = new ArrayList<>();
 
+        //Valores das despesas
         float value1=0;
         float value2=0;
         float value3=0;
@@ -59,6 +67,7 @@ public class GraficoDespesasActivity extends AppCompatActivity {
         float value7=0;
         float value8=0;
 
+        //Tipos das despesas
         String type1="", type2="", type3="", type4="", type5="", type6="", type7="", type8="";
 
         for ( int i=0; i < outputsDb.size(); i++ ) {
@@ -88,7 +97,7 @@ public class GraficoDespesasActivity extends AppCompatActivity {
                 case "Cartão de Crédito":
                     double v5 = out.getValueOutput();
                     value5 = value5 + (float) v5;
-                    type5 = out.getTypeOutput();
+                    type5 = out.getTypeOutput().split(" ")[0];
                     break;
                 case "Combustível":
                     double v6 = out.getValueOutput();
@@ -103,7 +112,7 @@ public class GraficoDespesasActivity extends AppCompatActivity {
                 case "Outras Despesas":
                     double v8 = out.getValueOutput();
                     value8 = value8 + (float) v8;
-                    type8 = out.getTypeOutput();
+                    type8 = out.getTypeOutput().split(" ")[0];
                     break;
             }
         }
@@ -118,6 +127,7 @@ public class GraficoDespesasActivity extends AppCompatActivity {
             }
         }
 
+
         //Array com as cores para o gráfico
         colors = new Integer[]{Color.parseColor("#cf58c2"), Color.parseColor("#28b1ff"),
                 Color.parseColor("#ffdb28"), Color.parseColor("#e8423f"),
@@ -130,20 +140,41 @@ public class GraficoDespesasActivity extends AppCompatActivity {
         PieData pieData = new PieData();
         pieData.setDataSet(pieDataSet);
 
-        //Descrição
-        Description description = pieChart.getDescription();
-        description.setText("Despesas");
-        description.setTextSize(14);
+        //Condição especificando que o gráfico só será criado se houver algum dado cadastrado
+        if(outputsChar.size()>0) {
+            //Descrição
+            Description description = pieChart.getDescription();
+            description.setText("Despesas");
+            description.setTextSize(14);
 
-        //Configurar legendas
-        Legend legend = pieChart.getLegend();
-        legend.setMaxSizePercent(0.90f);
-        legend.setWordWrapEnabled(true);
-        legend.setTextSize(14);
+            //Configurar legendas
+            Legend legend = pieChart.getLegend();
+            legend.setMaxSizePercent(0.90f);
+            legend.setWordWrapEnabled(true);
+            legend.setTextSize(14);
 
-        pieChart.animateY(1000);
-        pieChart.setData(pieData);
-        pieChart.invalidate();
+            //Define duração da animação e dados que estarão no grafico
+            pieChart.animateY(1000);
+            pieChart.setData(pieData);
+
+            //Formata os dados para serem representados por porcentagem
+            pieChart.getData().setValueFormatter(new PercentFormatter(pieChart));
+            pieChart.setUsePercentValues(true);
+
+            //Esconde os títulos dos valores e define o tamanho
+            pieChart.setEntryLabelColor(Color.TRANSPARENT);
+            pieChart.getData().setValueTextSize(16);
+
+            pieChart.invalidate();
+        }else{
+
+            //Formata o texto da mensagem quando não há dados
+            Paint p = pieChart.getPaint(Chart.PAINT_INFO);
+            p.setTextSize(60f);
+            p.setTextAlign(Paint.Align.CENTER);
+            pieChart.invalidate();
+        }
+
     }
 }
 

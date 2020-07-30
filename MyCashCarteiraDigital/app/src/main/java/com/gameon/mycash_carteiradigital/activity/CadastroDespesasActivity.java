@@ -63,7 +63,6 @@ public class CadastroDespesasActivity extends AppCompatActivity implements Adapt
         buttonSalve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 saveSpences();
             }
         });
@@ -185,7 +184,7 @@ public class CadastroDespesasActivity extends AppCompatActivity implements Adapt
 
     }
 
-    //Função para validar os campos que precisam ser preechidos
+    //Função para validar os campos que precisam ser preenchidos
     public boolean validatedFields(String value, String description) {
         boolean fields = true;
 
