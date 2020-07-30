@@ -23,7 +23,7 @@ public class SobreActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Sobre nós");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        String descriition = "Desenvolvedores do App MyCash podem ser encontrados da seguintes maneiras";
+        String descriition = "Desenvolvedores do App MyCash podem ser encontrados em:";
 
         Element versionElement = new Element();
         versionElement.setTitle("1.0");

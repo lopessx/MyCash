@@ -62,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:gravity="center_horizontal"
-                    android:text="Adicione seus ganhos ou consulte seu rendimento"
+                    android:text="Adicione ganhos ou consulte seus rendimentos"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
@@ -130,7 +130,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:gravity="center_horizontal"
-                    android:text="Adicione seus gastos ou consulte suas despesas"
+                    android:text="Adicione gastos ou consulte despesas"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
@@ -198,7 +198,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:gravity="center_horizontal"
-                    android:text="Veja suas atividades de uma forma resumida"
+                    android:text="Veja todas atividades de forma resumida"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />

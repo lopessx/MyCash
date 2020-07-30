@@ -42,7 +42,7 @@ public class GraficoDespesasActivity extends AppCompatActivity {
         setContentView(R.layout.layout_grafico_despesas);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Resumo de atividades");
+        getSupportActionBar().setTitle("Grafico das despesas");
 
         pieChart = findViewById(R.id.pieChartSpendings);
 

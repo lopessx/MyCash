@@ -41,7 +41,7 @@ public class GraficoActivity extends AppCompatActivity {
         setContentView(R.layout.layout_grafico);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Resumo de atividades");
+        getSupportActionBar().setTitle("Grafico dos ganhos");
 
         pieChart = findViewById(R.id.pieChartEarnings);
 
