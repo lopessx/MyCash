@@ -113,7 +113,9 @@ public class GraficoDespesasActivity extends AppCompatActivity {
 
         /** Preechendo o gráfico **/
         for (int i=0; i < types.length; i++){
-            outputsChar.add(new PieEntry( values[i], types[i]));
+            if(values[i]>0) {
+                outputsChar.add(new PieEntry(values[i], types[i]));
+            }
         }
 
         //Array com as cores para o gráfico
