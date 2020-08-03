@@ -47,7 +47,9 @@
     <string name="others2">Outros</string>
 
     <string name="titleDialog">Dica</string>
-    <string name="remember">Lembreme</string>
+    <string name="remember">Lembre-me</string>
 
+    <!-- Hint do SearchView -->
+    <string name="hintSearView">Pesquisar...</string>
 
 </resources>

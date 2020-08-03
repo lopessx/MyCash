@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,10 +26,13 @@ import android.widget.Toast;
 import com.gameon.mycash_carteiradigital.R;
 import com.gameon.mycash_carteiradigital.helper.AdapterListagemDespesas;
 
+import com.gameon.mycash_carteiradigital.helper.AdapterListagemGanhos;
 import com.gameon.mycash_carteiradigital.helper.OutputDAO;
 import com.gameon.mycash_carteiradigital.helper.RecyclerItemClickListener;
 
+import com.gameon.mycash_carteiradigital.model.Input;
 import com.gameon.mycash_carteiradigital.model.Output;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,17 +43,22 @@ public class ListagemDespesasActivity extends AppCompatActivity{
     private List<Output> listOutput = new ArrayList<>();
     private Output outputSelected = new Output();
     AdapterListagemDespesas adapterListagemDespesas;
+    private MaterialSearchView searchView;
     private static final String PREFERENCE_2 = "dialog_ON_OFF_2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_listagem_despesas);
+        Toolbar toobar = findViewById(R.id.toolbar);
+        setSupportActionBar(toobar);
 
         //Título
         getSupportActionBar().setTitle("Listagem de despesas");
         //Botão de voltar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //Recuperar o ID do material searchView
+        searchView = findViewById(R.id.searchView);
 
         recyclerView = findViewById(R.id.recyclerListingOutput);
 
@@ -123,6 +132,37 @@ public class ListagemDespesasActivity extends AppCompatActivity{
             showDialog();
         }
 
+        //Listener para as funçoes do searchView
+        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                //Apresenta algo pro usuário
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                reloadList();
+            }
+        });
+
+        //Listeber para caixa de texto
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //Executado a pesquisa após o input de pesquisa
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Pesquisa em tempo de execução
+                if (newText != null && !newText.isEmpty()){
+                    searchItem(newText.toLowerCase());
+                }
+                return true;
+            }
+        });
+
     }
 
     public void loadList(){
@@ -149,21 +189,9 @@ public class ListagemDespesasActivity extends AppCompatActivity{
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
 
+        //Configurar o menu para pesquisa de itensd
         MenuItem menuItem = menu.findItem(R.id.menuSearch);
-        SearchView searchView = (SearchView) menuItem.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                //Tudo isso ta no Adapter
-                adapterListagemDespesas.getFilter().filter(newText);
-                return false;
-            }
-        });
+        searchView.setMenuItem(menuItem);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -222,6 +250,31 @@ public class ListagemDespesasActivity extends AppCompatActivity{
 
         alertDialog.show();
 
+    }
+
+    //Função para pesquisa
+    public void searchItem(String text){
+        //Log.d("pesquisa", nome);
+        List<Output> outPutList = new ArrayList<>();
+
+        for ( Output output : listOutput ){
+
+            String typeOutput = output.getTypeOutput().toLowerCase();
+            if ( typeOutput.contains( text ) ){
+                outPutList.add(output);
+            }
+        }
+
+        adapterListagemDespesas = new AdapterListagemDespesas(outPutList);
+        recyclerView.setAdapter(adapterListagemDespesas);
+        adapterListagemDespesas.notifyDataSetChanged();
+    }
+
+    //Função para recarregar a listagem
+    public void reloadList(){
+        adapterListagemDespesas = new AdapterListagemDespesas(listOutput);
+        recyclerView.setAdapter(adapterListagemDespesas);
+        adapterListagemDespesas.notifyDataSetChanged();
     }
 
 }

@@ -1,6 +1,7 @@
 package com.gameon.mycash_carteiradigital.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.view.View;
@@ -19,12 +20,16 @@ public class SobreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_sobre);
+        Toolbar toobar = findViewById(R.id.toolbar);
+        setSupportActionBar(toobar);
 
         getSupportActionBar().setTitle("Sobre nós");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //Descrição
         String descriition = "Desenvolvedores do App MyCash podem ser encontrados em:";
 
+        //Versao do APP
         Element versionElement = new Element();
         versionElement.setTitle("1.0");
 

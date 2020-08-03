@@ -16,8 +16,8 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.layout_splash);
-        getSupportActionBar().setTitle("");
-        getSupportActionBar().setElevation(0);
+        //getSupportActionBar().setTitle("");
+        //getSupportActionBar().setElevation(0);
 
         new Handler().postDelayed(new Runnable() {
             @Override

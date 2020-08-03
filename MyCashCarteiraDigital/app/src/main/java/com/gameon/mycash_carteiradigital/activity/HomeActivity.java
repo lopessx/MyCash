@@ -1,6 +1,7 @@
 package com.gameon.mycash_carteiradigital.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +24,8 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_home);
+        Toolbar toobar = findViewById(R.id.toolbar);
+        setSupportActionBar(toobar);
 
         //Elevação da toobar
         getSupportActionBar().setElevation(0);

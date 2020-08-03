@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class AdapterListagemDespesas extends RecyclerView.Adapter<AdapterListagemDespesas.MyOutputViewlHolder> implements Filterable {
+public class AdapterListagemDespesas extends RecyclerView.Adapter<AdapterListagemDespesas.MyOutputViewlHolder>{
 
     //Lista padrão
     private List<Output> outputList = new ArrayList<>();
@@ -53,49 +53,6 @@ public class AdapterListagemDespesas extends RecyclerView.Adapter<AdapterListage
     public int getItemCount() {
         return outputList.size();
     }
-
-    //Aplicar os filtros da pesquisa
-    @Override
-    public Filter getFilter() {
-        return filter;
-    }
-
-    //Configurações do filtro depesquisa
-    Filter filter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            List<Output> filteredList = new ArrayList<>();
-
-            if (constraint.toString().isEmpty()) {
-                filteredList.addAll(listFilter);
-            } else {
-                for (Output output : listFilter) {
-
-                    String outputType = output.getTypeOutput();
-                    String outputDescription = output.getDescriptionOutput();
-                    //Pesuisa pelo tipo
-                    if (outputType.toLowerCase().contains(constraint.toString().toLowerCase())) {
-                        filteredList.add(output);
-                    }
-                    //Pesuisa pela descrição
-                    if (outputDescription.toLowerCase().contains(constraint.toString().toLowerCase())) {
-                        filteredList.add(output);
-                    }
-                }
-            }
-            FilterResults filterResults = new FilterResults();
-            filterResults.values = filteredList;
-
-            return filterResults;
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            outputList.clear();
-            outputList.addAll((Collection<? extends Output>) results.values);
-            notifyDataSetChanged();
-        }
-    };
 
     public class MyOutputViewlHolder extends RecyclerView.ViewHolder {
 

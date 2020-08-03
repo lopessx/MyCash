@@ -2,6 +2,7 @@ package com.gameon.mycash_carteiradigital.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,6 +39,8 @@ public class CadastroDespesasActivity extends AppCompatActivity implements Adapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_cadastro_despesas);
+        Toolbar toobar = findViewById(R.id.toolbar);
+        setSupportActionBar(toobar);
 
         //recuperando IDs dos componentes View
         outputValue = findViewById(R.id.inputValueOutput);

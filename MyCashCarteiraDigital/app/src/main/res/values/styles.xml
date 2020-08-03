@@ -21,4 +21,16 @@
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
     </style>
 
+    <!-- estilo para o SearchView -->
+    <style name="MaterialSearchViewStyle">
+
+        <item name="searchBackIcon">@drawable/ic_backspace_white_24dp</item>
+        <item name="searchCloseIcon">@drawable/ic_close_white_24dp</item>
+        <item name="searchBackground">@color/colorPrimary</item>
+        <item name="android:textColor">@color/textLithing</item>
+        <item name="android:textColorHint">@color/textLithing</item>
+        <item name="android:hint">@string/hintSearView</item>
+
+    </style>
+
 </resources>

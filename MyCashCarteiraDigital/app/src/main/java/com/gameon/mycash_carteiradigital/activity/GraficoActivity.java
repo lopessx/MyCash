@@ -1,6 +1,7 @@
 package com.gameon.mycash_carteiradigital.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -39,6 +40,8 @@ public class GraficoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_grafico);
+        Toolbar toobar = findViewById(R.id.toolbar);
+        setSupportActionBar(toobar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Grafico dos ganhos");

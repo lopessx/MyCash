@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,6 +29,7 @@ import com.gameon.mycash_carteiradigital.helper.AdapterListagemGanhos;
 import com.gameon.mycash_carteiradigital.helper.InputDAO;
 import com.gameon.mycash_carteiradigital.helper.RecyclerItemClickListener;
 import com.gameon.mycash_carteiradigital.model.Input;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,18 +39,25 @@ public class ListagemGanhosActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private List<Input> listInput = new ArrayList<>();
     private Input inputSelected = new Input();
+    private MaterialSearchView searchView;
+
     AdapterListagemGanhos adapterListagemGanhos;
+
     private static final String PREFERENCE_1 = "dialog_ON_OFF_1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_listagem_ganhos);
+        Toolbar toobar = findViewById(R.id.toolbar);
+        setSupportActionBar(toobar);
 
         //Título
         getSupportActionBar().setTitle("Listagem de ganhos");
         //Botão de voltar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //recuperar ID do SearchView
+        searchView = findViewById(R.id.searchView);
 
         recyclerView = findViewById(R.id.recyclerListingInput);
 
@@ -122,6 +131,37 @@ public class ListagemGanhosActivity extends AppCompatActivity {
             showDialog();
         }
 
+        //Listener para as funçoes do searchView
+        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                //Apresenta algo pro usuário
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                reloadList();
+            }
+        });
+
+        //Listeber para caixa de texto
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //Executado a pesquisa após o input de pesquisa
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Pesquisa em tempo de execução
+                if (newText != null && !newText.isEmpty()){
+                    searchItem(newText.toLowerCase());
+                }
+                return true;
+            }
+        });
+
     }
 
     public void loadList(){
@@ -148,21 +188,9 @@ public class ListagemGanhosActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
 
+        //Configurar botáo de pesquisa
         MenuItem menuItem = menu.findItem(R.id.menuSearch);
-        SearchView searchView = (SearchView) menuItem.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                //Tudo isso ta no Adapter
-                adapterListagemGanhos.getFilter().filter(newText);
-                return false;
-            }
-        });
+        searchView.setMenuItem(menuItem);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -221,6 +249,31 @@ public class ListagemGanhosActivity extends AppCompatActivity {
 
         alertDialog.show();
 
+    }
+
+    //Função para pesquisa
+    public void searchItem(String text){
+        //Log.d("pesquisa", nome);
+        List<Input> inputList = new ArrayList<>();
+
+        for ( Input input : listInput ){
+
+            String typeInput = input.getTypeInput().toLowerCase();
+            if ( typeInput.contains( text ) ){
+                inputList.add(input);
+            }
+        }
+
+        adapterListagemGanhos = new AdapterListagemGanhos(inputList);
+        recyclerView.setAdapter(adapterListagemGanhos);
+        adapterListagemGanhos.notifyDataSetChanged();
+    }
+
+    //Função para recarregar a listagem
+    public void reloadList(){
+        adapterListagemGanhos = new AdapterListagemGanhos(listInput);
+        recyclerView.setAdapter(adapterListagemGanhos);
+        adapterListagemGanhos.notifyDataSetChanged();
     }
 
 }

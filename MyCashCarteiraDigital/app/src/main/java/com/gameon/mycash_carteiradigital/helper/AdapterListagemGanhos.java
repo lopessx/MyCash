@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class AdapterListagemGanhos extends RecyclerView.Adapter<AdapterListagemGanhos.MyInputViewlHolder> implements Filterable {
+public class AdapterListagemGanhos extends RecyclerView.Adapter<AdapterListagemGanhos.MyInputViewlHolder> {
 
     //Lista padrão
     private List<Input> inputList = new ArrayList<>();
@@ -52,48 +52,6 @@ public class AdapterListagemGanhos extends RecyclerView.Adapter<AdapterListagemG
         return inputList.size();
     }
 
-    //Aplicar os filtros da pesquisa
-    @Override
-    public Filter getFilter() {
-        return filter;
-    }
-
-    //Configurações do filtro depesquisa
-    Filter filter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            List<Input> filteredList = new ArrayList<>();
-
-            if(constraint.toString().isEmpty()){
-                filteredList.addAll(listFilter);
-            }else {
-                for (Input input : listFilter){
-
-                    String inputType = input.getTypeInput();
-                    String inputDescription = input.getDescriptionInput();
-                    //Pesuisa pelo tipo
-                    if (inputType.toLowerCase().contains(constraint.toString().toLowerCase())){
-                        filteredList.add(input);
-                    }
-                    //Pesuisa pela descrição
-                    if (inputDescription.toLowerCase().contains(constraint.toString().toLowerCase())){
-                        filteredList.add(input);
-                    }
-                }
-            }
-            FilterResults  filterResults = new FilterResults();
-            filterResults.values = filteredList;
-
-            return filterResults;
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            inputList.clear();
-            inputList.addAll((Collection<? extends Input>) results.values);
-            notifyDataSetChanged();
-        }
-    };
 
     public class MyInputViewlHolder extends RecyclerView.ViewHolder {
 
