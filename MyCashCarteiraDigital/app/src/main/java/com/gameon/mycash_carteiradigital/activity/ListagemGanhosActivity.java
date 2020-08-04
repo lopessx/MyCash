@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
@@ -21,20 +23,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.gameon.mycash_carteiradigital.R;
 import com.gameon.mycash_carteiradigital.helper.AdapterListagemGanhos;
+import com.gameon.mycash_carteiradigital.helper.DatePickerFragment;
 import com.gameon.mycash_carteiradigital.helper.InputDAO;
 import com.gameon.mycash_carteiradigital.helper.RecyclerItemClickListener;
 import com.gameon.mycash_carteiradigital.model.Input;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
-public class ListagemGanhosActivity extends AppCompatActivity {
+public class ListagemGanhosActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
     private RecyclerView recyclerView;
     private List<Input> listInput = new ArrayList<>();
@@ -44,6 +50,8 @@ public class ListagemGanhosActivity extends AppCompatActivity {
     AdapterListagemGanhos adapterListagemGanhos;
 
     private static final String PREFERENCE_1 = "dialog_ON_OFF_1";
+
+    private boolean startOrLastDate = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +68,34 @@ public class ListagemGanhosActivity extends AppCompatActivity {
         searchView = findViewById(R.id.searchView);
 
         recyclerView = findViewById(R.id.recyclerListingInput);
+
+        //Botões e eventos
+        Button btnStart = (Button) findViewById(R.id.start_date_earnings_btn);
+        btnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Booleano para verificar se é a primeira data selecionada ou última
+                startOrLastDate = true;
+                //Vai instanciar o dialogo do calendário baseado na classe de fragment criada
+                DialogFragment datePicker = new DatePickerFragment();
+                //Mostra o calendário
+                datePicker.show(getSupportFragmentManager(),"data start");
+            }
+        });
+
+        Button btnLast = (Button) findViewById(R.id.last_date_earnings_btn);
+        btnLast.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Booleano para verificar se é a primeira data selecionada ou última
+                startOrLastDate = false;
+                //Vai instanciar o dialogo do calendário baseado na classe de fragment criada
+                DialogFragment datePicker = new DatePickerFragment();
+                //Mostra o calendário
+                datePicker.show(getSupportFragmentManager(),"data last");
+            }
+        });
+
 
         //Eventos de click para o recyclerView
         recyclerView.addOnItemTouchListener(
@@ -276,4 +312,32 @@ public class ListagemGanhosActivity extends AppCompatActivity {
         adapterListagemGanhos.notifyDataSetChanged();
     }
 
+
+    //Função para selecionar a data
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+        //Deixa a data atual selecionada no calendario
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.MONTH, month);
+        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+        //Salva a data selecionada no calendário em uma string
+        String date = DateFormat.getDateInstance().format(cal.getTime());
+        Button startDate = findViewById(R.id.start_date_earnings_btn);
+        Button lastDate = findViewById(R.id.last_date_earnings_btn);
+
+        //Dependendo do botão o texto dele muda pra data selecionada
+        if(startOrLastDate){
+            startDate.setText(date);
+        }else{
+            lastDate.setText(date);
+        }
+
+    }
+
+
 }
+
+

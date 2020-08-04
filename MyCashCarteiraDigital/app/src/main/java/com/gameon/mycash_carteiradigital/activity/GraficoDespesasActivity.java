@@ -3,10 +3,12 @@ package com.gameon.mycash_carteiradigital.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.DatePicker;
 
 import com.gameon.mycash_carteiradigital.R;
 import com.gameon.mycash_carteiradigital.helper.InputDAO;
@@ -23,11 +25,13 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
-public class GraficoDespesasActivity extends AppCompatActivity {
+public class GraficoDespesasActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
     /** Essse código faz uso da Biblioteca MPAndroidChart **/
     /** Encontrada no link " https://github.com/PhilJay/MPAndroidChart/wiki/Getting-Started " **/
@@ -36,6 +40,9 @@ public class GraficoDespesasActivity extends AppCompatActivity {
 
     private List<Output> outputsDb;
     private Integer[] colors;
+
+    //Variável que controla se a seleção é do começo ou do final
+    private boolean startOrLastDate = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,6 +186,33 @@ public class GraficoDespesasActivity extends AppCompatActivity {
         }
 
     }
+
+    //Função para selecionar a data
+    //Todo Botão para selecionar data
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+        //Deixa a data atual selecionada no calendario
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.MONTH, month);
+        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+
+        //Salva a data selecionada no calendário em uma string
+        String date = DateFormat.getDateInstance().format(cal.getTime());
+        //Button startDate = findViewById(R.id.start_date_btn);
+        //Button lastDate = findViewById(R.id.close_date_btn);
+
+        //Dependendo do botão o texto dele muda pra data selecionada
+        /*if(startOrLastDate){
+            startDate.setText(date);
+        }else{
+            lastDate.setText(date);
+        }*/
+
+    }
+
 }
 
 
