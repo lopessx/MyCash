@@ -3,7 +3,6 @@ package com.gameon.mycash_carteiradigital.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
@@ -16,7 +15,6 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,11 +29,9 @@ import com.gameon.mycash_carteiradigital.R;
 import com.gameon.mycash_carteiradigital.helper.AdapterListagemDespesas;
 
 import com.gameon.mycash_carteiradigital.helper.DatePickerFragment;
-import com.gameon.mycash_carteiradigital.helper.AdapterListagemGanhos;
 import com.gameon.mycash_carteiradigital.helper.OutputDAO;
 import com.gameon.mycash_carteiradigital.helper.RecyclerItemClickListener;
 
-import com.gameon.mycash_carteiradigital.model.Input;
 import com.gameon.mycash_carteiradigital.model.Output;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
@@ -52,6 +48,9 @@ public class ListagemDespesasActivity extends AppCompatActivity implements DateP
     AdapterListagemDespesas adapterListagemDespesas;
     private MaterialSearchView searchView;
     private static final String PREFERENCE_2 = "dialog_ON_OFF_2";
+
+    private Button buttonFirstDate;
+    private Button buttonLastDate;
 
     private boolean startOrLastDate = true;
 
@@ -70,33 +69,6 @@ public class ListagemDespesasActivity extends AppCompatActivity implements DateP
         searchView = findViewById(R.id.searchView);
 
         recyclerView = findViewById(R.id.recyclerListingOutput);
-
-        //Botões e eventos
-        Button btnStart = (Button) findViewById(R.id.start_date_spendings_btn);
-        btnStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Booleano para verificar se é a primeira data selecionada ou última
-                startOrLastDate = true;
-                //Vai instanciar o dialogo do calendário baseado na classe de fragment criada
-                DialogFragment datePicker = new DatePickerFragment();
-                //Mostra o calendário
-                datePicker.show(getSupportFragmentManager(),"data start");
-            }
-        });
-
-        Button btnLast = (Button) findViewById(R.id.last_date_spendings_btn);
-        btnLast.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Booleano para verificar se é a primeira data selecionada ou última
-                startOrLastDate = false;
-                //Vai instanciar o dialogo do calendário baseado na classe de fragment criada
-                DialogFragment datePicker = new DatePickerFragment();
-                //Mostra o calendário
-                datePicker.show(getSupportFragmentManager(),"data last");
-            }
-        });
 
         //Eventos de click para o recyclerView
         recyclerView.addOnItemTouchListener(
@@ -235,19 +207,18 @@ public class ListagemDespesasActivity extends AppCompatActivity implements DateP
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
+        int id = item.getItemId();
+
+        if (id == R.id.menuDateFilter) {
+            showDialogFilterDate();
+        }
 
         return super.onOptionsItemSelected(item);
     }
 
     //Carrega a listagem sempre que a activity é iniciada
-    @Override
-    protected void onStart() {
-        loadList();
-        super.onStart();
-    }
-
     /** Dialog personalizado **/
-    //Dialog de innstrução para ensinar o usuário a excluir itens
+    //Dialog de instrução para ensinar o usuário a excluir itens
     //Função de configuração do Dialog
     public void showDialog(){
 
@@ -288,6 +259,12 @@ public class ListagemDespesasActivity extends AppCompatActivity implements DateP
 
     }
 
+    @Override
+    protected void onStart() {
+        loadList();
+        super.onStart();
+    }
+
     //Função para pesquisa
     public void searchItem(String text){
         //Log.d("pesquisa", nome);
@@ -325,17 +302,85 @@ public class ListagemDespesasActivity extends AppCompatActivity implements DateP
 
         //Salva a data selecionada no calendário em uma string
         String date = DateFormat.getDateInstance().format(cal.getTime());
-        Button startDate = findViewById(R.id.start_date_spendings_btn);
-        Button lastDate = findViewById(R.id.last_date_spendings_btn);
+
+        /** Estes botões doram substituidos por variaveis globais por questao de bugs **/
+        //Button firstDate = findViewById(R.id.start_date_spendings_btn);
+        //Button lastDate = findViewById(R.id.last_date_spendings_btn);
 
         //Dependendo do botão o texto dele muda pra data selecionada
         if(startOrLastDate){
-            startDate.setText(date);
+            buttonFirstDate.setText(date);
         }else{
-            lastDate.setText(date);
+            buttonLastDate.setText(date);
         }
 
     }
 
+    //Função para criar o Dialog para seleção da data para filtrar os itens da lista
+    public void showDialogFilterDate(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(ListagemDespesasActivity.this, R.style.AlertDialogTheme);
+        View view = LayoutInflater.from(ListagemDespesasActivity.this)
+                .inflate(R.layout.layout_dialog_filter_date, (ConstraintLayout) findViewById(R.id.layoutDialogContainer_FilterDate));
+        builder.setView(view);
+
+        final AlertDialog alertDialog = builder.create();
+
+        //Click do botão para data inicial
+        buttonFirstDate = view.findViewById(R.id.start_date_filter_btn);
+        buttonFirstDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Booleano para verificar se é a primeira data selecionada ou última
+                startOrLastDate = true;
+                //Vai instanciar o dialogo do calendário baseado na classe de fragment criada
+                DialogFragment datePicker = new DatePickerFragment();
+                //Mostra o calendário
+                datePicker.show(getSupportFragmentManager(),"data start");
+            }
+        });
+
+        //Click do botão para data final
+        buttonLastDate = view.findViewById(R.id.last_date_filter_btn);
+        buttonLastDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Booleano para verificar se é a primeira data selecionada ou última
+                startOrLastDate = false;
+                //Vai instanciar o dialogo do calendário baseado na classe de fragment criada
+                DialogFragment datePicker = new DatePickerFragment();
+                //Mostra o calendário
+                datePicker.show(getSupportFragmentManager(),"data last");
+
+            }
+        });
+
+        ////Click do botão OK
+        view.findViewById(R.id.buttonOk).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+                /** A mágica acontece após esse botão ser precionado **/
+
+            }
+        });
+
+        ////Click do botão para cancela
+        view.findViewById(R.id.buttonCancelDialogFilterDate).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        if (alertDialog.getWindow() != null){
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        }
+
+        alertDialog.show();
+
+    }
 
 }

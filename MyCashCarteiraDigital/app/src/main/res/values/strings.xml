@@ -49,6 +49,12 @@
     <string name="titleDialog">Dica</string>
     <string name="remember">Lembre-me</string>
 
+    <!-- Textos para o alert dialog do filtro por data -->
+    <string name="titleDialogFilterDate">Filtrar por data</string>
+    <string name="textButtonDateStart">Data inicial</string>
+    <string name="textButtonDateEnd">Data final</string>
+    <string name="textButtonCancel">Cancelar</string>
+
     <!-- Hint do SearchView -->
     <string name="hintSearView">Pesquisar...</string>
 
