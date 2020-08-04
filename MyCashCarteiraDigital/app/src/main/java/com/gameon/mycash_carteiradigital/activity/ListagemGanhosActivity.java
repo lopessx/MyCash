@@ -169,6 +169,12 @@ public class ListagemGanhosActivity extends AppCompatActivity implements DatePic
                 if (newText != null && !newText.isEmpty()){
                     searchItem(newText.toLowerCase());
                 }
+
+                //Recarrega toda a lista caso o campo de pesquisa esteja vazio
+                if (newText.equals("")){
+                    reloadList();
+                }
+
                 return true;
             }
         });
