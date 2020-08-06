@@ -30,8 +30,10 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class GraficoActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
@@ -45,6 +47,12 @@ public class GraficoActivity extends AppCompatActivity implements DatePickerDial
 
     //Variável que controla se a seleção é do começo ou do final
     private boolean startOrLastDate = true;
+
+    private Calendar cal = Calendar.getInstance();
+
+    private DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+    private Date dtStart;
+    private Date dtLast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,21 +184,32 @@ public class GraficoActivity extends AppCompatActivity implements DatePickerDial
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
         //Deixa a data atual selecionada no calendario
-        Calendar cal = Calendar.getInstance();
+
         cal.set(Calendar.YEAR, year);
         cal.set(Calendar.MONTH, month);
         cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
         //Salva a data selecionada no calendário em uma string
+        String simpleDate = df.format(cal.getTime());
         String date = DateFormat.getDateInstance().format(cal.getTime());
         //Button startDate = findViewById(R.id.start_date_btn);
         //Button lastDate = findViewById(R.id.close_date_btn);
 
         //Dependendo do botão o texto dele muda pra data selecionada
         /*if(startOrLastDate){
-            startDate.setText(date);
+            try {
+                dtStart = df.parse(simpleDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            buttonFirstDate.setText(date);
         }else{
-            lastDate.setText(date);
+            try {
+                dtLast = df.parse(simpleDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            buttonLastDate.setText(date);
         }*/
 
     }

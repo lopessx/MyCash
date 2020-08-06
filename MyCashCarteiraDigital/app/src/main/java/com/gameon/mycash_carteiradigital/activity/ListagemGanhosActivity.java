@@ -36,8 +36,11 @@ import com.gameon.mycash_carteiradigital.model.Input;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ListagemGanhosActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
@@ -55,6 +58,12 @@ public class ListagemGanhosActivity extends AppCompatActivity implements DatePic
     private Button buttonLastDate;
 
     private boolean startOrLastDate = true;
+
+    private Calendar cal = Calendar.getInstance();
+
+    private DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+    private Date dtStart;
+    private Date dtLast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -305,19 +314,29 @@ public class ListagemGanhosActivity extends AppCompatActivity implements DatePic
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
         //Deixa a data atual selecionada no calendario
-        Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, year);
         cal.set(Calendar.MONTH, month);
         cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
         //Salva a data selecionada no calendário em uma string
+        String simpleDate = df.format(cal.getTime());
         String date = DateFormat.getDateInstance().format(cal.getTime());
         /** Removi os botoes locais que tu criou e deixei como globais **/
 
         //Dependendo do botão o texto dele muda pra data selecionada
         if(startOrLastDate){
+            try {
+                dtStart = df.parse(simpleDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             buttoFirstDate.setText(date);
         }else{
+            try {
+                dtLast = df.parse(simpleDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             buttonLastDate.setText(date);
         }
 
@@ -370,6 +389,19 @@ public class ListagemGanhosActivity extends AppCompatActivity implements DatePic
                 alertDialog.dismiss();
 
                 /** A mágica acontece após esse botão ser precionado **/
+
+                cal.setTime(dtStart);
+                //Faz a varredura de todas as datas a partir da inicial até a final
+                for (Date dt = dtStart; dt.compareTo (dtLast) <= 0; ) {
+                    //Print para fins de debug
+                    System.out.println (df.format (dt));
+                    //Avança em um dia no calendário
+                    cal.add (Calendar.DATE, +1);
+                    //Atribui a nova data a ser tratada e continua o loop
+                    dt = cal.getTime();
+                    /** Aqui que vai ser colocada a função que filtra as datas **/
+
+                }
 
             }
         });
