@@ -1,22 +1,10 @@
 package com.gameon.mycash_carteiradigital.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.DialogFragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +14,16 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.gameon.mycash_carteiradigital.R;
 import com.gameon.mycash_carteiradigital.helper.AdapterListagemGanhos;
@@ -391,15 +389,45 @@ public class ListagemGanhosActivity extends AppCompatActivity implements DatePic
                 /** A mágica acontece após esse botão ser precionado **/
 
                 cal.setTime(dtStart);
+                InputDAO in = new InputDAO(getApplicationContext());
+
+                //Array com todos os campos do banco
+                listInput = in.list();
+
+                //Array do resultado da consulta
+                List<Input> result = new ArrayList<>();
+
                 //Faz a varredura de todas as datas a partir da inicial até a final
                 for (Date dt = dtStart; dt.compareTo (dtLast) <= 0; ) {
-                    //Print para fins de debug
-                    System.out.println (df.format (dt));
+
                     //Avança em um dia no calendário
                     cal.add (Calendar.DATE, +1);
+
+                    /** Aqui é a função que filtra as datas **/
+                    for(int i = 0; i<listInput.size();i++){
+
+                        //Verifica os valores de cada data
+                        if(listInput.get(i).getDateInput().equals(df.format(dt))){
+                            //Caso o valor da data seja igual ao valor da data do período selecionado adiciona no array o objeto
+                            result.add(listInput.get(i));
+                        }
+
+                    }
+
                     //Atribui a nova data a ser tratada e continua o loop
                     dt = cal.getTime();
-                    /** Aqui que vai ser colocada a função que filtra as datas **/
+
+
+                }
+
+                //Atualiza o recyclerview
+                adapterListagemGanhos = new AdapterListagemGanhos(result);
+                recyclerView.setAdapter(adapterListagemGanhos);
+                adapterListagemGanhos.notifyDataSetChanged();
+
+                //Mostra uma notificação caso não haja dados salvos no array
+                if(result.isEmpty()){
+                    Toast.makeText(getApplicationContext(),"Não há dados para o período selecionado",Toast.LENGTH_SHORT).show();
 
                 }
 

@@ -1,22 +1,13 @@
 package com.gameon.mycash_carteiradigital.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.DialogFragment;
-
-import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.text.GetChars;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.gameon.mycash_carteiradigital.R;
-import com.gameon.mycash_carteiradigital.helper.DatePickerFragment;
 import com.gameon.mycash_carteiradigital.helper.InputDAO;
 import com.gameon.mycash_carteiradigital.model.Input;
 import com.github.mikephil.charting.charts.Chart;
@@ -29,14 +20,10 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-public class GraficoActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class GraficoActivity extends AppCompatActivity {
 
     /** Essse código faz uso da Biblioteca MPAndroidChart **/
     /** Encontrada no link " https://github.com/PhilJay/MPAndroidChart/wiki/Getting-Started " **/
@@ -44,15 +31,6 @@ public class GraficoActivity extends AppCompatActivity implements DatePickerDial
     private PieChart pieChart;
 
     private List<Input> inputsDb;
-
-    //Variável que controla se a seleção é do começo ou do final
-    private boolean startOrLastDate = true;
-
-    private Calendar cal = Calendar.getInstance();
-
-    private DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-    private Date dtStart;
-    private Date dtLast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +43,6 @@ public class GraficoActivity extends AppCompatActivity implements DatePickerDial
         getSupportActionBar().setTitle("Grafico dos ganhos");
 
         pieChart = findViewById(R.id.pieChartEarnings);
-
-        //Ações dos botões da tela
-        //Todo Implementar botões na tela
-
-
         //insere a mensagem que aparece caso não tenha dados no chart
         pieChart.setNoDataText("Sem dados disponíveis");
 
@@ -178,40 +151,5 @@ public class GraficoActivity extends AppCompatActivity implements DatePickerDial
 
     }
 
-    //Função para selecionar a data
-    //Todo Botão para selecionar data
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
-        //Deixa a data atual selecionada no calendario
-
-        cal.set(Calendar.YEAR, year);
-        cal.set(Calendar.MONTH, month);
-        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-        //Salva a data selecionada no calendário em uma string
-        String simpleDate = df.format(cal.getTime());
-        String date = DateFormat.getDateInstance().format(cal.getTime());
-        //Button startDate = findViewById(R.id.start_date_btn);
-        //Button lastDate = findViewById(R.id.close_date_btn);
-
-        //Dependendo do botão o texto dele muda pra data selecionada
-        /*if(startOrLastDate){
-            try {
-                dtStart = df.parse(simpleDate);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            buttonFirstDate.setText(date);
-        }else{
-            try {
-                dtLast = df.parse(simpleDate);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            buttonLastDate.setText(date);
-        }*/
-
-    }
 }
 
