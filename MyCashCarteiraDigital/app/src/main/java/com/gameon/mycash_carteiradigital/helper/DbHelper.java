@@ -12,11 +12,8 @@ import com.gameon.mycash_carteiradigital.model.Category;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class DbHelper extends SQLiteOpenHelper {
-
-    //TODO É NECESSÁRIO REFAZER O MÉTODO DE POPULAÇÃO DA TABELA TABLE_CATEGORY POIS ESTÁ POPULANDO DUPLICADO
 
     private static int VERSION = 3;
     private static String NAME_BD = "MYCASH";
@@ -25,7 +22,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static String TABLE_OUTPUT = "output";
 
     //String para popular a tabela de categorias
-    String populateCategory = "INSERT INTO "+ TABLE_CATEGORY +" (id_cat,name_cat,type_cat) VALUES (1,'Salário','Entrada de dinheiro'),(2,'Extra','Entrada de dinheiro'),(3,'Outros Ganhos','Entrada de dinheiro'), " +
+    private String populateCategory = "INSERT INTO "+ TABLE_CATEGORY +" (id_cat,name_cat,type_cat) VALUES (1,'Salário','Entrada de dinheiro'),(2,'Extra','Entrada de dinheiro'),(3,'Outros Ganhos','Entrada de dinheiro'), " +
             "(4,'Alimentação','Saida de dinheiro'),(5,'Aluguel','Saida de dinheiro'),(6,'Água','Saida de dinheiro'),(7,'Energia','Saida de dinheiro'),(8,'Cartão de Crédito','Saida de dinheiro'),(9,'Combustível','Saida de dinheiro'),(10,'Lazer','Saida de dinheiro'),(11,'Outras Despesas','Saida de dinheiro');";
 
 

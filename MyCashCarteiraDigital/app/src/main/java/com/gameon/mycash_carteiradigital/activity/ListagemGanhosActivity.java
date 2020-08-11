@@ -60,8 +60,8 @@ public class ListagemGanhosActivity extends AppCompatActivity implements DatePic
     private Calendar cal = Calendar.getInstance();
 
     private DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-    private Date dtStart;
-    private Date dtLast;
+    private Date dtStart = new Date();
+    private Date dtLast = new Date();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,7 +162,7 @@ public class ListagemGanhosActivity extends AppCompatActivity implements DatePic
             }
         });
 
-        //Listeber para caixa de texto
+        //Listener para caixa de texto
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -387,8 +387,11 @@ public class ListagemGanhosActivity extends AppCompatActivity implements DatePic
                 alertDialog.dismiss();
 
                 /** A mágica acontece após esse botão ser precionado **/
+                //Verifica se as variáveis são null
+                if(dtStart != null) {
+                    cal.setTime(dtStart);
+                }
 
-                cal.setTime(dtStart);
                 InputDAO in = new InputDAO(getApplicationContext());
 
                 //Array com todos os campos do banco
@@ -398,7 +401,7 @@ public class ListagemGanhosActivity extends AppCompatActivity implements DatePic
                 List<Input> result = new ArrayList<>();
 
                 //Faz a varredura de todas as datas a partir da inicial até a final
-                for (Date dt = dtStart; dt.compareTo (dtLast) <= 0; ) {
+                for (Date dt = cal.getTime(); dt.compareTo (dtLast) <= 0; ) {
 
                     //Avança em um dia no calendário
                     cal.add (Calendar.DATE, +1);

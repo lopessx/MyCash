@@ -58,8 +58,8 @@ public class ListagemDespesasActivity extends AppCompatActivity implements DateP
     private Calendar cal = Calendar.getInstance();
 
     private DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-    private Date dtStart;
-    private Date dtLast;
+    private Date dtStart = new Date();
+    private Date dtLast = new Date();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -386,7 +386,10 @@ public class ListagemDespesasActivity extends AppCompatActivity implements DateP
                 alertDialog.dismiss();
 
                 /** A mágica acontece após esse botão ser precionado **/
-                cal.setTime(dtStart);
+                //Verifica se as variáveis são null
+                if(dtStart != null) {
+                    cal.setTime(dtStart);
+                }
                 OutputDAO op = new OutputDAO(getApplicationContext());
 
                 //Array com todos os campos do banco
@@ -397,7 +400,7 @@ public class ListagemDespesasActivity extends AppCompatActivity implements DateP
 
 
                 //Faz a varredura de todas as datas a partir da inicial até a final
-                for (Date dt = dtStart; dt.compareTo (dtLast) <= 0; ) {
+                for (Date dt = cal.getTime(); dt.compareTo (dtLast) <= 0; ) {
 
                     //Avança em um dia no calendário
                     cal.add (Calendar.DATE, +1);
