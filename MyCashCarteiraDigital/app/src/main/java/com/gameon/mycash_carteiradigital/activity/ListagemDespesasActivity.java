@@ -1,15 +1,5 @@
 package com.gameon.mycash_carteiradigital.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.DialogFragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -25,19 +15,30 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.gameon.mycash_carteiradigital.R;
 import com.gameon.mycash_carteiradigital.helper.AdapterListagemDespesas;
-
 import com.gameon.mycash_carteiradigital.helper.DatePickerFragment;
 import com.gameon.mycash_carteiradigital.helper.OutputDAO;
 import com.gameon.mycash_carteiradigital.helper.RecyclerItemClickListener;
-
 import com.gameon.mycash_carteiradigital.model.Output;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ListagemDespesasActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
@@ -45,7 +46,7 @@ public class ListagemDespesasActivity extends AppCompatActivity implements DateP
     private RecyclerView recyclerView;
     private List<Output> listOutput = new ArrayList<>();
     private Output outputSelected = new Output();
-    AdapterListagemDespesas adapterListagemDespesas;
+    private AdapterListagemDespesas adapterListagemDespesas;
     private MaterialSearchView searchView;
     private static final String PREFERENCE_2 = "dialog_ON_OFF_2";
 
@@ -53,6 +54,12 @@ public class ListagemDespesasActivity extends AppCompatActivity implements DateP
     private Button buttonLastDate;
 
     private boolean startOrLastDate = true;
+
+    private Calendar cal = Calendar.getInstance();
+
+    private DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+    private Date dtStart = new Date();
+    private Date dtLast = new Date();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -301,22 +308,32 @@ public class ListagemDespesasActivity extends AppCompatActivity implements DateP
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
         //Deixa a data atual selecionada no calendario
-        Calendar cal = Calendar.getInstance();
+
         cal.set(Calendar.YEAR, year);
         cal.set(Calendar.MONTH, month);
         cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
         //Salva a data selecionada no calendário em uma string
+        String simpleDate = df.format(cal.getTime());
         String date = DateFormat.getDateInstance().format(cal.getTime());
 
         /** Estes botões doram substituidos por variaveis globais por questao de bugs **/
-        //Button firstDate = findViewById(R.id.start_date_spendings_btn);
-        //Button lastDate = findViewById(R.id.last_date_spendings_btn);
+
 
         //Dependendo do botão o texto dele muda pra data selecionada
         if(startOrLastDate){
+            try {
+                dtStart = df.parse(simpleDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             buttonFirstDate.setText(date);
         }else{
+            try {
+                dtLast = df.parse(simpleDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             buttonLastDate.setText(date);
         }
 
@@ -369,6 +386,52 @@ public class ListagemDespesasActivity extends AppCompatActivity implements DateP
                 alertDialog.dismiss();
 
                 /** A mágica acontece após esse botão ser precionado **/
+                //Verifica se as variáveis são null
+                if(dtStart != null) {
+                    cal.setTime(dtStart);
+                }
+                OutputDAO op = new OutputDAO(getApplicationContext());
+
+                //Array com todos os campos do banco
+                listOutput = op.list();
+
+                //Array do resultado da consulta
+                List<Output> result = new ArrayList<>();
+
+
+                //Faz a varredura de todas as datas a partir da inicial até a final
+                for (Date dt = cal.getTime(); dt.compareTo (dtLast) <= 0; ) {
+
+                    //Avança em um dia no calendário
+                    cal.add (Calendar.DATE, +1);
+
+                    /** Aqui é a função que filtra as datas **/
+                    for(int i = 0; i<listOutput.size();i++){
+
+                        //Verifica os valores de cada data
+                        if(listOutput.get(i).getDateOutput().equals(df.format(dt))){
+                            //Caso o valor da data seja igual ao valor da data do período selecionado adiciona no array o objeto
+                            result.add(listOutput.get(i));
+                        }
+
+                    }
+
+                    //Atribui a nova data a ser tratada e continua o loop
+                    dt = cal.getTime();
+                    /** Aqui que vai ser colocada a função que filtra as datas **/
+
+                }
+
+                //Atualiza o recyclerview
+                adapterListagemDespesas = new AdapterListagemDespesas(result);
+                recyclerView.setAdapter(adapterListagemDespesas);
+                adapterListagemDespesas.notifyDataSetChanged();
+
+                //Mostra uma notificação caso não haja dados salvos no array
+                if(result.isEmpty()){
+                    Toast.makeText(getApplicationContext(),"Não há dados para o período selecionado",Toast.LENGTH_SHORT).show();
+
+                }
 
             }
         });

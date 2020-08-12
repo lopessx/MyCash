@@ -1,22 +1,10 @@
 package com.gameon.mycash_carteiradigital.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.DialogFragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +15,16 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.gameon.mycash_carteiradigital.R;
 import com.gameon.mycash_carteiradigital.helper.AdapterListagemGanhos;
 import com.gameon.mycash_carteiradigital.helper.DatePickerFragment;
@@ -36,8 +34,11 @@ import com.gameon.mycash_carteiradigital.model.Input;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ListagemGanhosActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
@@ -55,6 +56,12 @@ public class ListagemGanhosActivity extends AppCompatActivity implements DatePic
     private Button buttonLastDate;
 
     private boolean startOrLastDate = true;
+
+    private Calendar cal = Calendar.getInstance();
+
+    private DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+    private Date dtStart = new Date();
+    private Date dtLast = new Date();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,7 +162,7 @@ public class ListagemGanhosActivity extends AppCompatActivity implements DatePic
             }
         });
 
-        //Listeber para caixa de texto
+        //Listener para caixa de texto
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -305,19 +312,29 @@ public class ListagemGanhosActivity extends AppCompatActivity implements DatePic
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
         //Deixa a data atual selecionada no calendario
-        Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, year);
         cal.set(Calendar.MONTH, month);
         cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
         //Salva a data selecionada no calendário em uma string
+        String simpleDate = df.format(cal.getTime());
         String date = DateFormat.getDateInstance().format(cal.getTime());
         /** Removi os botoes locais que tu criou e deixei como globais **/
 
         //Dependendo do botão o texto dele muda pra data selecionada
         if(startOrLastDate){
+            try {
+                dtStart = df.parse(simpleDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             buttoFirstDate.setText(date);
         }else{
+            try {
+                dtLast = df.parse(simpleDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             buttonLastDate.setText(date);
         }
 
@@ -370,6 +387,52 @@ public class ListagemGanhosActivity extends AppCompatActivity implements DatePic
                 alertDialog.dismiss();
 
                 /** A mágica acontece após esse botão ser precionado **/
+                //Verifica se as variáveis são null
+                if(dtStart != null) {
+                    cal.setTime(dtStart);
+                }
+
+                InputDAO in = new InputDAO(getApplicationContext());
+
+                //Array com todos os campos do banco
+                listInput = in.list();
+
+                //Array do resultado da consulta
+                List<Input> result = new ArrayList<>();
+
+                //Faz a varredura de todas as datas a partir da inicial até a final
+                for (Date dt = cal.getTime(); dt.compareTo (dtLast) <= 0; ) {
+
+                    //Avança em um dia no calendário
+                    cal.add (Calendar.DATE, +1);
+
+                    /** Aqui é a função que filtra as datas **/
+                    for(int i = 0; i<listInput.size();i++){
+
+                        //Verifica os valores de cada data
+                        if(listInput.get(i).getDateInput().equals(df.format(dt))){
+                            //Caso o valor da data seja igual ao valor da data do período selecionado adiciona no array o objeto
+                            result.add(listInput.get(i));
+                        }
+
+                    }
+
+                    //Atribui a nova data a ser tratada e continua o loop
+                    dt = cal.getTime();
+
+
+                }
+
+                //Atualiza o recyclerview
+                adapterListagemGanhos = new AdapterListagemGanhos(result);
+                recyclerView.setAdapter(adapterListagemGanhos);
+                adapterListagemGanhos.notifyDataSetChanged();
+
+                //Mostra uma notificação caso não haja dados salvos no array
+                if(result.isEmpty()){
+                    Toast.makeText(getApplicationContext(),"Não há dados para o período selecionado",Toast.LENGTH_SHORT).show();
+
+                }
 
             }
         });
