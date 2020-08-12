@@ -281,8 +281,8 @@ public class ListagemGanhosActivity extends AppCompatActivity implements DatePic
 
         for ( Input input : listInput ){
 
-            String typeInput = input.getTypeInput().toLowerCase();
-            if ( typeInput.contains( text ) ){
+            String descriptionInput = input.getDescriptionInput().toLowerCase();
+            if ( descriptionInput.contains( text ) ){
                 inputList.add(input);
             }
         }
@@ -391,5 +391,3 @@ public class ListagemGanhosActivity extends AppCompatActivity implements DatePic
     }
 
 }
-
-

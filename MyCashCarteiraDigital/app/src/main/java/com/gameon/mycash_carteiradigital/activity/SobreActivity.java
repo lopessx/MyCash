@@ -20,8 +20,6 @@ public class SobreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_sobre);
-        Toolbar toobar = findViewById(R.id.toolbar);
-        setSupportActionBar(toobar);
 
         getSupportActionBar().setTitle("Sobre nós");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

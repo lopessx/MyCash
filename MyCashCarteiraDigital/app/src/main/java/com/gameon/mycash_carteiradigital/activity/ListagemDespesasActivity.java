@@ -278,8 +278,8 @@ public class ListagemDespesasActivity extends AppCompatActivity implements DateP
 
         for ( Output output : listOutput ){
 
-            String typeOutput = output.getTypeOutput().toLowerCase();
-            if ( typeOutput.contains( text ) ){
+            String descriptionOutput = output.getDescriptionOutput().toLowerCase();
+            if ( descriptionOutput.contains( text ) ){
                 outPutList.add(output);
             }
         }

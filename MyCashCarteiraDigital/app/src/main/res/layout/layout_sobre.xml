@@ -7,7 +7,4 @@
     tools:context=".activity.SobreActivity"
     android:orientation="vertical">
 
-    <include
-        layout="@layout/toobar" />
-
 </LinearLayout>
