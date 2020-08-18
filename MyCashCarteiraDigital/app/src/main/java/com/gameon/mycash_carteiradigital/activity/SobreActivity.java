@@ -1,10 +1,9 @@
 package com.gameon.mycash_carteiradigital.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.gameon.mycash_carteiradigital.R;
 
@@ -36,8 +35,7 @@ public class SobreActivity extends AppCompatActivity {
                 .setDescription(descriition)
 
                 .addGroup("Anthonny K. N.")
-                .addGitHub("", "GitHub")
-                .addInstagram("", "Instagram")
+                .addInstagram("kyllaweya", "Instagram")
 
                 .addGroup("Emanuel Lopes")
                 .addGitHub("lopessx", "GitHub")
