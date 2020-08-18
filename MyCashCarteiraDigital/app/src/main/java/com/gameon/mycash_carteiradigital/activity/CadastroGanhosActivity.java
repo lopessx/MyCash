@@ -1,13 +1,7 @@
 package com.gameon.mycash_carteiradigital.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,8 +9,10 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.gameon.mycash_carteiradigital.R;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import com.gameon.mycash_carteiradigital.R;
 import com.gameon.mycash_carteiradigital.helper.InputDAO;
 import com.gameon.mycash_carteiradigital.model.Input;
 import com.google.android.material.textfield.TextInputEditText;
@@ -93,6 +89,24 @@ public class CadastroGanhosActivity extends AppCompatActivity implements Adapter
         if (validateFields){
             Input input = new Input();
 
+            //Tratar campo nulo
+            if (value1.isEmpty() || value1.contentEquals(" ") || value1.contentEquals(".")){
+                //Mensagem para sinalizar que os dados foram salvos
+                Toast.makeText(getApplicationContext(), "Valor inválido",
+                        Toast.LENGTH_SHORT).show();
+                value1 = "0";
+                validateFields = false;
+            }
+
+            //Tratar número igual a zero
+            if (Double.parseDouble(value1) == 0){
+                //Mensagem para sinalizar que os dados foram salvos
+                Toast.makeText(getApplicationContext(), "Valor inválido",
+                        Toast.LENGTH_SHORT).show();
+                validateFields = false;
+
+            }
+
             //Tratar números negativos
             Double valueFinal = Double.parseDouble(value1);
             if (valueFinal < 0){
@@ -104,16 +118,18 @@ public class CadastroGanhosActivity extends AppCompatActivity implements Adapter
             input.setDateInput(date);
             input.setIdCategory(idCtg);
 
-            //salva no bando de dados
-            inputDAO.save(input);
+            if(validateFields) {
+                //salva no bando de dados
+                inputDAO.save(input);
 
-            //Mensagem para sinalizar que os dados foram salvos
-            Toast.makeText(getApplicationContext(), "Salvo com sucesso!",
-                    Toast.LENGTH_SHORT).show();
+                //Mensagem para sinalizar que os dados foram salvos
+                Toast.makeText(getApplicationContext(), "Salvo com sucesso!",
+                        Toast.LENGTH_SHORT).show();
 
-            //Reinicia a activity
-            finish();
-            startActivity(new Intent(getApplicationContext(), CadastroGanhosActivity.class));
+                //Reinicia a activity
+                finish();
+                startActivity(new Intent(getApplicationContext(), CadastroGanhosActivity.class));
+            }
 
         }else{
             //Mensagem de aviso casos os campos não tenham sido validados
