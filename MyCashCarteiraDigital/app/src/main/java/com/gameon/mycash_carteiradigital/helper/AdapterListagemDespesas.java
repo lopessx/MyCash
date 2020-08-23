@@ -4,19 +4,15 @@ package com.gameon.mycash_carteiradigital.helper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gameon.mycash_carteiradigital.R;
-
 import com.gameon.mycash_carteiradigital.model.Output;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class AdapterListagemDespesas extends RecyclerView.Adapter<AdapterListagemDespesas.MyOutputViewlHolder>{

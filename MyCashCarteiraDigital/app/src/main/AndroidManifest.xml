@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.SplashActivity"
+        <activity android:name="com.gameon.mycash_carteiradigital.activity.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,26 +18,26 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.SobreActivity"
-            android:parentActivityName=".activity.HomeActivity" />
+            android:name="com.gameon.mycash_carteiradigital.activity.SobreActivity"
+            android:parentActivityName="com.gameon.mycash_carteiradigital.activity.HomeActivity" />
         <activity
-            android:name=".activity.GraficoActivity"
-            android:parentActivityName=".activity.HomeActivity"
+            android:name="com.gameon.mycash_carteiradigital.activity.GraficoActivity"
+            android:parentActivityName="com.gameon.mycash_carteiradigital.activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".activity.GraficoDespesasActivity"
-            android:parentActivityName=".activity.HomeActivity"
+            android:name="com.gameon.mycash_carteiradigital.activity.GraficoDespesasActivity"
+            android:parentActivityName="com.gameon.mycash_carteiradigital.activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".activity.ListagemGanhosActivity"
-            android:parentActivityName=".activity.HomeActivity"
+            android:name="com.gameon.mycash_carteiradigital.activity.ListagemGanhosActivity"
+            android:parentActivityName="com.gameon.mycash_carteiradigital.activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".activity.ListagemDespesasActivity"
-            android:parentActivityName=".activity.HomeActivity"
+            android:name="com.gameon.mycash_carteiradigital.activity.ListagemDespesasActivity"
+            android:parentActivityName="com.gameon.mycash_carteiradigital.activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".activity.HomeActivity"
+            android:name="com.gameon.mycash_carteiradigital.activity.HomeActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,12 +46,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.CadastroDespesasActivity"
-            android:parentActivityName=".activity.HomeActivity"
+            android:name="com.gameon.mycash_carteiradigital.activity.CadastroDespesasActivity"
+            android:parentActivityName="com.gameon.mycash_carteiradigital.activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".activity.CadastroGanhosActivity"
-            android:parentActivityName=".activity.HomeActivity"
+            android:name="com.gameon.mycash_carteiradigital.activity.CadastroGanhosActivity"
+            android:parentActivityName="com.gameon.mycash_carteiradigital.activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <meta-data

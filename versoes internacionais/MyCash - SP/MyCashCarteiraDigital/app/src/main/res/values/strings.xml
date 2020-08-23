@@ -1,0 +1,167 @@
+<resources>
+
+    <string name="app_name">My Cash - Monedero Digital</string>
+    <string name="login">Login</string>
+    <string name="senha">Senha</string>
+    <string name="entrar">Entrar</string>
+    <string name="saldo">Saldo:R$ 0,00</string>
+    <string name="valor_es">Valor de Entrada ou Saída:</string>
+    <string name="descricao">Descrição</string>
+    <string name="ganhos">Ganhos:</string>
+    <string name="salario">Salário</string>
+    <string name="extra">Extra</string>
+    <string name="outros_g">Outros Ganhos</string>
+    <string name="despesas">Despesas:</string>
+    <string name="alimento">Alimentação</string>
+    <string name="aluguel">Aluguel</string>
+    <string name="agua">Água</string>
+    <string name="energia">Energia</string>
+    <string name="cartao">Cartão de Crédito</string>
+    <string name="combustivel">Combustivel</string>
+    <string name="lazer">Lazer</string>
+    <string name="outras_d">Outras Dispesas</string>
+    <string name="graf">Gráfico:</string>
+    <string name="tipo_g">Tipo de ganho</string>
+    <string name="valor_ent">Valor de  entrada</string>
+    <string name="add_g">Novo Ganho</string>
+    <string name="ok">Confirmar</string>
+    <string name="saida_grana">Novo Gasto</string>
+    <string name="valor_sai">Valor do gasto</string>
+    <string name="tipo_sai">Tipo de gasto</string>
+    <string name="rel_gra">Relatorios</string>
+    <string name="info">Informações</string>
+
+    <!-- Array do spinner container na tela de cadastro de ganhos -->
+    <string name="salary">Salário</string>
+    <string name="extras">Extras</string>
+    <string name="others">Outros</string>
+
+    <!-- Array do spinner container na tela de cadastro de gastos -->
+    <string name="food">Alimentação</string>
+    <string name="rent">Aluguel</string>
+    <string name="water">Água</string>
+    <string name="electricity">Energia</string>
+    <string name="credit_card">Cartão de crédito</string>
+    <string name="fuel">Combustível</string>
+    <string name="recreation">Lazer</string>
+    <string name="others2">Outros</string>
+
+    <string name="titleDialog">Dica</string>
+    <string name="remember">Lembre-me</string>
+
+    <!-- Textos para o alert dialog do filtro por data -->
+    <string name="titleDialogFilterDate">Filtrar por data</string>
+    <string name="textButtonDateStart">Data inicial</string>
+    <string name="textButtonDateEnd">Data final</string>
+    <string name="textButtonCancel">Cancelar</string>
+
+    <!-- Descrição da tela de sobre os desenvolvedores -->
+    <string name="descricao_tela_sobre">Desenvolvedores do App MyCash podem ser encontrados em:</string>
+
+    <!-- Hint do SearchView -->
+    <string name="hintSearView">Pesquisar...</string>
+
+    <!-- _______________Símbolo das moedas____________________ -->
+
+    <string name="simbolo_Brasil">R$ </string>      <!--[ v ] -->
+    <string name="simbolo_Portugal">€ </string>     <!--[ v ] -->
+    <string name="simbolo_Argentina">$ </string>    <!--[  ] -->
+    <string name="simbolo_Bolivia">$b </string>     <!--[  ] -->
+    <string name="simbolo_Chile">CLP $ </string>    <!--[  ] -->
+    <string name="simbolo_Colombia">$ </string>     <!--[  ] -->
+    <string name="simbolo_CostaRica">₡ </string>    <!--[  ] -->
+    <string name="simbolo_Cuba"> CUC $ </string>    <!--[  ] -->
+    <string name="simbolo_ElSalvador">$ </string>   <!--[  ] -->
+    <string name="simbolo_Espana">€ </string>       <!--[  ] -->
+    <string name="simbolo_Guatemala">Q </string>    <!--[  ] -->
+    <string name="simbolo_Honduras">L </string>     <!--[  ] -->
+    <string name="simbolo_Mexico">$ </string>       <!--[  ] -->
+    <string name="simbolo_Nicaragua">C$ </string>   <!--[  ] -->
+    <string name="simbolo_Paraguay">₲ </string>     <!--[  ] -->
+    <string name="simbolo_Peru">S/ </string>        <!--[  ] -->
+    <string name="simbolo_PuertoRico">US$ </string> <!--[  ] -->
+    <string name="simbolo_RepublicaDominicana">RD$ </string><!--[  ] -->
+    <string name="simbolo_Uruguai">$U </string>     <!--[  ] -->
+    <string name="simbolo_Venezuela">Bs </string>   <!--[  ] -->
+
+    <!--  ______________________String para tradução em Espanhol____________________________ -->
+
+    <!-- Início tela home -->
+
+    <string name="app_name_espanhol">My Cash - Monedero digital</string>
+
+    <string name="descricao_ganhos_espanhol">Agregue ganancias o vea sus ingresos</string>
+    <string name="descricao_despesas_espanhol">Añadir gastos o ver gastos</string>
+    <string name="botao_add_ganho_despesa_espanhol">AÑADIR</string>
+    <string name="botao_consult_ganho_despesa_espanhol">LISTADO</string>
+
+    <string name="descricao_grafico__espanhol">Ver todas las actividades en pocas palabras</string>
+    <string name="botao_ganho_graficos_espanhol">GERENCIAS</string>
+    <string name="botao_despesas_graficos_espanhol">GASTOS</string>
+
+    <string name="descricao_sobre_nos_espanhol">Más información sobre los desarrolladores de aplicaciones</string>
+    <string name="botao_sobre_nos_espanhol">Sobre nosotros</string>
+
+    <!-- Fim tela home -->
+
+    <!-- Início tela de cadastro de Ganhos e Despesas -->
+
+    <string name="hint_input_valor_entrada_espanhol">Valor de entrada</string>
+    <string name="hint_input_descricao_espanhol">Descripción</string>
+    <string name="text_tipos_ganhos_espanhol">Tipo de ganancias</string>
+    <string name="text_tipo_gasto_espanhol">Tipo de gasto</string>
+
+            <!-- textos do spinner de ganhos -->
+    <string name="text_salario_espanhol">Salario</string>
+    <string name="text_extras_espanhol">Extra</string>
+    <string name="text_outros_esppanhol">Otro</string>
+
+            <!-- texto de spinner de gastos -->
+    <string name="text_alimentacao_espanhol">Alimentación</string>
+    <string name="text_alugeul_espanhol">Alquiler</string>
+    <string name="text_agua_espanhol">Agua</string>
+    <string name="text_energia_espanhol">Energía</string>
+    <string name="text_cartao_crediito_espanhol">Tarjeta de crédito</string>
+    <string name="text_combustivel_espanhol">Combustible</string>
+    <string name="text_lazer_espanhol">Ocio</string>
+    <string name="text_outros_espanhol">Otro</string>
+
+    <string name="text_botao_salvar">Salvar</string>
+
+    <!-- Fim tela de cadastro de Ganhos e despesas -->
+
+    <!-- strings do Dialog para filtrar por data -->
+    <string name="text_filtro_data_espanhool">Filtrar por fecha</string>
+    <string name="text_botao1_filtro_data_espanhol">Fecha de inicio</string>
+    <string name="text_botao2_filtro_data_espanhol">Última fecha</string>
+    <string name="text_botao_cancelar_filtro_data_espanhol">Cancelar</string>
+
+    <!-- Hint do SearchView -->
+    <string name="hintSearView_espanhol">Búsqueda...</string>
+
+    <!-- Descrição da tela de sobre os desenvolvedores -->
+    <string name="descricao_tela_sobre_espanhol">Los desarrolladores de la aplicación MyCash se pueden encontrar en:</string>
+
+    <!-- textos das toobar -->
+    <string name="text_toobar_tela_add_ganhos_espanhol">Añadir ganancia</string>
+    <string name="text_toobar_tela_listagem_ganhos_espanhol">Lista de ganancias</string>
+    <string name="text_toobar_tela_add_despesas_espanhol">Añadir gastos</string>
+    <string name="text_toobar_tela_listagem_despesas_espanhol">Listado de gastos</string>
+    <string name="text_toobar_grafico_ganhos_espanhol">Gráfico de ganancias</string>
+    <string name="text_toobar_grafico_despesas_espanhol">Gráfico de gastos</string>
+    <string name="text_toobar_sobre_nos_espanhol">Sobre nosotros</string>
+
+    <!-- textos para dialog de exclusao de itens -->
+    <string name="text_title_dialog_excluir_espanhol">Confirmar eliminación</string>
+    <string name="text_descricao_dialog_exccluir_espanhol">¿Desea eliminar este elemento?</string>
+    <string name="text_sim_dialog_excluir_espanhol">Sí</string>
+    <string name="text_nao_dialog_excluir_espanhol">No</string>
+
+    <!-- texto para caso o gráfico esteja vasio -->
+    <string name="mensagem_grafico_vasio">Datos no disponibles</string>
+
+    <!-- mensagens dos Toasts -->
+    <string name="toast_salvar">Salvado con éxito</string>
+    <string name="toast_excluir">Elemento eliminado</string>
+
+</resources>

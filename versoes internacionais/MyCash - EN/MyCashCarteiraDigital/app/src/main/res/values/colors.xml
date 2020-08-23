@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#9900CC</color>
+    <color name="colorPrimaryDark">#660099</color>
+    <color name="colorAccent">#660066</color>
+    <color name="textLithing">#fff</color>
+
+    //Cores para o gráfico
+    <color name="roxo">#cf58c2</color>
+    <color name="azul">#28b1ff</color>
+    <color name="amarelo">#ffdb28</color>
+    <color name="laranja">#fc952b</color>
+    <color name="vermelho">#e8423f</color>
+    <color name="roxo2">#b73ae8</color>
+    <color name="marrom">#80381b</color>
+    <color name="verde">#528c3b</color>
+</resources>

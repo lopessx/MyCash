@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="expenses_category">
+        <item>@string/text_alimentacao_espanhol</item>
+        <item>@string/text_alugeul_espanhol</item>
+        <item>@string/text_agua_espanhol</item>
+        <item>@string/text_energia_espanhol</item>
+        <item>@string/text_cartao_crediito_espanhol</item>
+        <item>@string/text_combustivel_espanhol</item>
+        <item>@string/text_lazer_espanhol</item>
+        <item>@string/text_outros_esppanhol</item>
+    </string-array>
+
+</resources>

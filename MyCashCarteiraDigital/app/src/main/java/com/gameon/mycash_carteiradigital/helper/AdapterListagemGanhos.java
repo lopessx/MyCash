@@ -3,8 +3,6 @@ package com.gameon.mycash_carteiradigital.helper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,7 +12,6 @@ import com.gameon.mycash_carteiradigital.R;
 import com.gameon.mycash_carteiradigital.model.Input;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class AdapterListagemGanhos extends RecyclerView.Adapter<AdapterListagemGanhos.MyInputViewlHolder> {
@@ -40,7 +37,7 @@ public class AdapterListagemGanhos extends RecyclerView.Adapter<AdapterListagemG
 
     @Override
     public void onBindViewHolder(@NonNull MyInputViewlHolder holder, int position) {
-        Input input = inputList.get(position);;
+        Input input = inputList.get(position);
         holder.textDate.setText(input.getDateInput());
         holder.textDescription.setText(input.getDescriptionInput());
         holder.textValue.setText("R$ " + String.format("%.2f", input.getValueInput()));

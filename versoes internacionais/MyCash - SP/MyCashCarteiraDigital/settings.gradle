@@ -1,0 +1,2 @@
+rootProject.name='My Cash - Carteira Digital'
+include ':app'
